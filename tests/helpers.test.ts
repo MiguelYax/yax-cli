@@ -1,16 +1,16 @@
-import { Arguments, CommandInterface, getFlags, pad, showHelp, Validations } from '../src';
+import { Arguments, CommandInterface, getFlags, pad, showHelp, Rule, All } from '../src';
 
 describe('yax-cli', () => {
     test('resolve validations', () => {
-        const validations: Validations = {
-            'help': {
+        const validations: Rule[] = [
+             {
+              flag: 'help',
               alias: 'h',
               description: "Display help",
               required: false, 
               type: 'boolean',
               default: false
-            }
-          };
+          }];
           expect(getFlags(validations)).toEqual(['FLAGS:', '--help, -h                             (optional) Display help']);
     });
 
@@ -24,7 +24,7 @@ describe('yax-cli', () => {
         commands: [],
         examples: [],
         handler: () => {},
-        validations: {}
+        validations: []
       };
 
       const args: Arguments =    {
@@ -32,11 +32,7 @@ describe('yax-cli', () => {
         path: 'cwd/bin',
         bin: 'bin',
         command: 'test',
-        options: { 
-          h: true, 
-          o: 'dir',
-          f: ['index.js', 'main.js', 'root.js']
-         }
+        options: new Map<string, All>()
       };
       showHelp(cmd, args);
     });
@@ -47,14 +43,15 @@ describe('yax-cli', () => {
         commands: ['print'],
         examples: ['cli move --file readme.md'],
         handler: () => {},
-        validations: {
-          file: {
+        validations: [ {
+            flag: 'file',
             alias: 'f',
+            list: true,
             description: 'File path',
-            type: 'array',
+            type: 'string',
             required: true
-          }
-        }
+          
+        }]
       };
 
       const args: Arguments =    {
@@ -62,11 +59,7 @@ describe('yax-cli', () => {
         path: 'cwd/bin',
         bin: 'bin',
         command: 'test',
-        options: { 
-          h: true, 
-          o: 'dir',
-          f: ['index.js', 'main.js', 'root.js']
-         }
+        options: new Map<string, All>(),
       };
       showHelp(cmd, args);
     });

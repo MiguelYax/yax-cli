@@ -1,4 +1,4 @@
-import { Arguments, CommandInterface, Validations } from "./types";
+import { Arguments, CommandInterface, Rule } from "./types";
 
 export const toList = (title: string, items: string[]) : string[] => {
     return items.length ? [`${title}`, ...items.map((i) => `  - ${i}`)] : [];
@@ -9,16 +9,15 @@ export const pad =(n:number) : string => {
   return a.join(' ');
 };
 
-export const getFlags = (validations: Validations): string[] => {
+export const getFlags = (validations: Rule[]): string[] => {
   const flagSection = 40;
-  const keys: string[]  = Object.keys(validations);
-  const flags = keys.map((key) => {
-    const { alias, description, required} = validations[key];
-    const flags = `--${key}, -${alias}`;
+  const flags = validations.map((rule) => {
+    const { flag, alias, description, required} = rule;
+    const flags = `--${flag}, -${alias}`;
     const mode = required ? '(required)' : '(optional)';
     return  `${flags}${pad(flagSection - flags.length)}${mode} ${description}`;
   });
-  return keys.length > 0 ? ['FLAGS:', ...flags] : [];
+  return validations.length > 0 ? ['FLAGS:', ...flags] : [];
 };
 
 export const showHelp = (cmd: CommandInterface, args: Arguments): void => {

@@ -1,4 +1,4 @@
-import { Arguments, Options } from "./types";
+import { All, Arguments, Options } from "./types";
 import { basename } from "path";
 
 const isFlag = (key: string): boolean => {
@@ -9,15 +9,6 @@ const hasMore = (flag: string, argv: string[]): boolean => {
   return argv.filter((i) => i === flag )?.length > 1;
 };
 
-const append = (opts: Options, key: string, value: string): void  =>{
-  if (opts[key]) {
-    // @ts-expect-error Because before call append we call hasMore method
-    opts[key].push(value);
-  } else {
-    opts[key] = [value];
-  }
-};
-
 export const parser = (argv: string[]): Arguments => {
   const [
     node,
@@ -26,21 +17,26 @@ export const parser = (argv: string[]): Arguments => {
     ...opts
   ] = argv;
 
-  const options: Options = {};
-
+  const options = new Map<string, All>();
+  
   for (let i = 0; i < opts.length; i++) {
     const current = opts[i];
     const next = opts[i + 1];
     const flag = current.replace(/^[-]+/g, '');
     switch (true) {
       case isFlag(current) && (next === undefined || isFlag(next)):
-        options[flag] = true;
+        options.set(flag, true);
         break;
       case isFlag(current) && !isFlag(next):
         if (hasMore(current, opts)) {
-          append(options, flag, next);
+          if (options.has(flag)) {
+            const temp = <string[]>options.get(flag);
+            options.set(flag, [...temp, next])
+          } else {
+            options.set(flag, [next]);
+          }
         } else {
-          options[flag] = next;
+          options.set(flag, next);
         }
         break;
       default:

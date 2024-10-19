@@ -1,6 +1,6 @@
 import { readdirSync } from "fs";
 import { parser } from "./parser";
-import { Arguments, CommandInterface, Validations } from "./types";
+import { Arguments, CommandInterface, Rule } from "./types";
 import { showHelp } from "./helpers";
 import debug from 'debug';
 
@@ -24,15 +24,15 @@ export class Register implements CommandInterface {
   options: RegisterOptions;
   examples = [];
   description: string;
-  validations: Validations = {
-    'help': {
+  validations: Rule[] = [{
+      flag: 'help',
       alias: 'h',
       description: "Display help",
       required: false, 
       type: 'boolean',
       default: false
-    }
-  };
+    }]
+  
   constructor(options: RegisterOptions) {
     this.args = parser(options.process.argv);
     this.commands = readdirSync(options.commandsPath);
