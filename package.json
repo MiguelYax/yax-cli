@@ -14,7 +14,8 @@
     "lint:fix": "eslint . --fix --ignore-pattern dist",
     "build": "tsc",
     "coverage": "open ./coverage/lcov-report/index.html",
-    "release": "changeset status && changeset version && changeset publish"
+    "release": "changeset status && changeset version",
+    "postrelease": "npm pkg get version | xargs -t git tag && git push && git push --tags"
   },
   "keywords": [
     "javascript",
