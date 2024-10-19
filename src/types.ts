@@ -5,7 +5,6 @@ export type Options = {
 }
 export type Validations = {
   [key: string]: {
-    key: string,
     alias: string,
     description: string,
     required: boolean,
@@ -26,5 +25,5 @@ export interface CommandInterface {
   commands: string[],
   examples: string[],
   handler: (args: Arguments)=> void;
-  validations?: Validations
+  validations: Validations
 }
