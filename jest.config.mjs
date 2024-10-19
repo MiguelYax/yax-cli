@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     transform: {'^.+\\.ts?$': 'ts-jest'},
     testEnvironment: 'node',
     testRegex: '/tests/.*\\.(test|spec)?\\.ts$',
@@ -9,6 +9,14 @@ module.exports = {
       'dist',
       'test',
       'coverage'
-    ],  
+    ],
+    coverageThreshold: {
+        global: {
+            branches: 100,
+            functions: 100,
+            lines: 100,
+            statements: 100
+        }
+    }
   };
   

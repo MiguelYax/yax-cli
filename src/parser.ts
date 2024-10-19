@@ -3,20 +3,20 @@ import { basename } from "path";
 
 const isFlag = (key: string): boolean => {
   return key.startsWith('-');
-}
+};
 
 const hasMore = (flag: string, argv: string[]): boolean => {
   return argv.filter((i) => i === flag )?.length > 1;
-}
+};
 
 const append = (opts: Options, key: string, value: string): void  =>{
   if (opts[key]) {
-    // @ts-ignore
+    // @ts-expect-error Because before call append we call hasMore method
     opts[key].push(value);
   } else {
     opts[key] = [value];
   }
-}
+};
 
 export const parser = (argv: string[]): Arguments => {
   const [
@@ -42,6 +42,7 @@ export const parser = (argv: string[]): Arguments => {
         } else {
           options[flag] = next;
         }
+        break;
       default:
         break;
     }
@@ -53,4 +54,4 @@ export const parser = (argv: string[]): Arguments => {
     command,
     options
   };
-}
+};

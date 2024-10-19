@@ -6,10 +6,11 @@ describe('Register mecanism', () => {
         const commandsPath = `${__dirname}/cmds`;
         const proc = {
             argv: ['node', 'cwd/bin', 'hello']
-        }
+        };
            new Register({
+                description: 'my fist cli',
                 commandsPath,
-                process: proc,
+                process: proc
             });
     });
 
@@ -17,10 +18,10 @@ describe('Register mecanism', () => {
         const commandsPath = `${__dirname}/cmds`;
         const proc = {
             argv: ['node', 'cwd/bin', 'bye']
-        }
+        };
            new Register({
                 commandsPath,
-                process: proc,
+                process: proc
             });
     });
 
@@ -28,10 +29,21 @@ describe('Register mecanism', () => {
         const commandsPath = `${__dirname}/cmds`;
         const proc = {
             argv: ['node', 'cwd/bin', 'add']
-        }
+        };
            new Register({
                 commandsPath,
-                process: proc,
+                process: proc
+            });
+    });
+
+    test('register and call one unexisting command', () => {
+        const commandsPath = `${__dirname}/cmds`;
+        const proc = {
+            argv: ['node', 'cwd/bin', 'run']
+        };
+           new Register({
+                commandsPath,
+                process: proc
             });
     });
 

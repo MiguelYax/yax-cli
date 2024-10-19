@@ -12,9 +12,9 @@ describe('yax-cli', () => {
                 options: { 
                   h: true, 
                   o: 'dir',
-                  f: ['index.js', 'main.js', 'root.js'],
+                  f: ['index.js', 'main.js', 'root.js']
                  }
               }
-          )
-    })
+          );
+    });
 });

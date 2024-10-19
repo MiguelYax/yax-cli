@@ -10,8 +10,8 @@ describe('yax-cli', () => {
               type: 'boolean',
               default: false
             }
-          }
-          expect(getFlags(validations)).toEqual(['FLAGS:', '--help, -h                             (optional) Display help'])
+          };
+          expect(getFlags(validations)).toEqual(['FLAGS:', '--help, -h                             (optional) Display help']);
     });
 
     test('pad should return an empty string when n is a negative number', () => {
@@ -25,7 +25,7 @@ describe('yax-cli', () => {
         examples: [],
         handler: () => {},
         validations: {}
-      }
+      };
 
       const args: Arguments =    {
         node: 'node',
@@ -35,9 +35,9 @@ describe('yax-cli', () => {
         options: { 
           h: true, 
           o: 'dir',
-          f: ['index.js', 'main.js', 'root.js'],
+          f: ['index.js', 'main.js', 'root.js']
          }
-      }
+      };
       showHelp(cmd, args);
     });
 
@@ -52,10 +52,10 @@ describe('yax-cli', () => {
             alias: 'f',
             description: 'File path',
             type: 'array',
-            required: true,
+            required: true
           }
         }
-      }
+      };
 
       const args: Arguments =    {
         node: 'node',
@@ -65,9 +65,9 @@ describe('yax-cli', () => {
         options: { 
           h: true, 
           o: 'dir',
-          f: ['index.js', 'main.js', 'root.js'],
+          f: ['index.js', 'main.js', 'root.js']
          }
-      }
+      };
       showHelp(cmd, args);
     });
 });
