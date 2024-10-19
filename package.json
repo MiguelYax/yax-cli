@@ -1,0 +1,24 @@
+{
+  "name": "yax-cli",
+  "version": "0.0.0",
+  "description": "Yet another command line tool using Javascript. (By the way my last name is Yax)",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsc --watch --sourceMap",
+    "build": "tsc"
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "cli"
+  ],
+  "author": "Miguel Yax <mig_dj@hotmail.com>",
+  "license": "MIT",
+  "volta": {
+    "node": "20.18.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}
