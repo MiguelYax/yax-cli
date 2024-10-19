@@ -31,7 +31,7 @@ export class Register implements CommandInterface {
       required: false, 
       type: 'boolean',
       default: false
-    }]
+    }];
   
   constructor(options: RegisterOptions) {
     this.args = parser(options.process.argv);

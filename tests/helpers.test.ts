@@ -59,7 +59,7 @@ describe('yax-cli', () => {
         path: 'cwd/bin',
         bin: 'bin',
         command: 'test',
-        options: new Map<string, All>(),
+        options: new Map<string, All>()
       };
       showHelp(cmd, args);
     });

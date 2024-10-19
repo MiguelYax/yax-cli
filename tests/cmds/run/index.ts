@@ -1,4 +1,4 @@
- const Cmd = {
+const Cmd = {
     handler() {
         console.log('running...');
     }

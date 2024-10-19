@@ -1,4 +1,4 @@
-import { All, Arguments, Options } from "./types";
+import { All, Arguments } from "./types";
 import { basename } from "path";
 
 const isFlag = (key: string): boolean => {
@@ -31,7 +31,7 @@ export const parser = (argv: string[]): Arguments => {
         if (hasMore(current, opts)) {
           if (options.has(flag)) {
             const temp = <string[]>options.get(flag);
-            options.set(flag, [...temp, next])
+            options.set(flag, [...temp, next]);
           } else {
             options.set(flag, [next]);
           }

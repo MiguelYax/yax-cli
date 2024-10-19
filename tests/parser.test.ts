@@ -12,7 +12,7 @@ describe('yax-cli', () => {
                 node: 'node',
                 path: 'cwd/bin',
                 bin: 'bin',
-                command: 'test',
+                command: 'test'
            }
              
           );
