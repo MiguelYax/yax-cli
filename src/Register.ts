@@ -58,11 +58,13 @@ export class Register implements CommandInterface {
           const options = parser(this.args.flags);
           if (verify(options, cmd.validations)) {
             cmd.handler();
-          };
+          } else {
+            showHelp(cmd, this.args, [])
+          }
           
         });
     } else { 
-      showHelp(this, this.args);
+      showHelp(this, this.args, this.commands);
     }
   }
 }

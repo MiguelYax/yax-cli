@@ -6,7 +6,7 @@ export default class Hello implements CommandInterface  {
   validations: Rule[] = [
     {
       flag: 'message',
-      alias: 'f',
+      alias: 'm',
       required: true,
       description: 'Hello message',
       type: 'string'
