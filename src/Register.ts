@@ -2,6 +2,9 @@ import { readdirSync } from "fs";
 import { parser } from "./parser";
 import { Arguments, CommandInterface, Validations } from "./types";
 import { showHelp } from "./helpers";
+import debug from 'debug'
+
+const log = debug('yax-cli:Register');
 
 export type RegisterOptions = {
   commandsPath: string;
@@ -36,9 +39,14 @@ export class Register implements CommandInterface {
   }
 
   handler() {
+    log('[COMMANDS]', this.commands);
+    log('[ARGUMENTS]', this.args);
     if (this.commands.includes(this.args.command)) {
-      import(`${this.options.commandsPath}/${this.args.command}`) 
+      const relativePath = `${this.options.commandsPath}/${this.args.command}`;
+      log('[CMD PATH]', relativePath);
+      import(relativePath) 
       .then((module) => {
+        log('MODULE:', module);
         const Command = module.default;
         const cmd = Command.constructor ? new Command : Command;
         cmd.handler();
