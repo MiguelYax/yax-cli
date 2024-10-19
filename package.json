@@ -13,7 +13,8 @@
     "lint": "eslint . --ignore-pattern dist",
     "lint:fix": "eslint . --fix --ignore-pattern dist",
     "build": "tsc",
-    "coverage": "open ./coverage/lcov-report/index.html"
+    "coverage": "open ./coverage/lcov-report/index.html",
+    "release": "changeset status && changeset version && changeset publish"
   },
   "keywords": [
     "javascript",
