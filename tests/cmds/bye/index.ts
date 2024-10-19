@@ -1,7 +1,7 @@
 import { CommandInterface, Rule } from "../../../src";
 
 export default class Cmd implements CommandInterface {
-  description = 'Bye command'
+  description = 'Bye command';
   examples = [];
   validations: Rule[] = [
     {
@@ -12,7 +12,7 @@ export default class Cmd implements CommandInterface {
       required: false,
       type: 'boolean'
     }
-  ]
+  ];
   constructor() {}
   handler() {
     return true;
