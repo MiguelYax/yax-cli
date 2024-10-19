@@ -23,7 +23,7 @@ export const getFlags = (validations: Rule[]): string[] => {
 export const showHelp = (cmd: CommandInterface, args: Arguments): void => {
   const text = [
     `USAGE: ${args.bin} <command> [options]`,
-    ...toList('COMMANDS', cmd.commands),
+    // ...toList('COMMANDS', cmd?.commands),
     ...toList('EXAMPLES', cmd.examples),
     ...getFlags(cmd.validations)
   ];

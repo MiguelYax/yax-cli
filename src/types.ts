@@ -16,13 +16,12 @@ export type Arguments = {
   bin: string, 
   path: string;
   command: string,
-  options: Options
+  flags: string[]
 }
 
 export interface CommandInterface {
   description: string,
-  commands: string[],
   examples: string[],
-  handler: (args: Arguments)=> void;
+  handler: (options: Options)=> void;
   validations: Rule[]
 }

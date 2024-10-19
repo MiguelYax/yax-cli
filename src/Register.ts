@@ -1,7 +1,8 @@
 import { readdirSync } from "fs";
-import { parser } from "./parser";
+import { parser, getArgs } from "./parser";
 import { Arguments, CommandInterface, Rule } from "./types";
 import { showHelp } from "./helpers";
+import { verify } from "./validations";
 import debug from 'debug';
 
 const log = debug('yax-cli:Register');
@@ -34,7 +35,7 @@ export class Register implements CommandInterface {
   }];
   
   constructor(options: RegisterOptions) {
-    this.args = parser(options.process.argv);
+    this.args = getArgs(options.process.argv);
     this.commands = readdirSync(options.commandsPath);
     this.description = options.description ?? '';
     this.options = options;
@@ -53,7 +54,12 @@ export class Register implements CommandInterface {
           log('MODULE:', module);
           const Command = module.default;
           const cmd = isClass(Command) ? new Command : Command;
-          cmd.handler();
+    
+          const options = parser(this.args.flags);
+          if (verify(options, cmd.validations)) {
+            cmd.handler();
+          };
+          
         });
     } else { 
       showHelp(this, this.args);

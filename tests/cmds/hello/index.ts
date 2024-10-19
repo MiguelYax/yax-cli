@@ -1,9 +1,8 @@
-import { Arguments, CommandInterface, Rule } from '../../../src/types';
+import { CommandInterface, Options, Rule } from '../../../src/types';
 
 export default class Hello implements CommandInterface  {
   description = "Hello command";
   examples = ['cli hello -m world'];
-  commands = [];
   validations: Rule[] = [
     {
       flag: 'message',
@@ -13,8 +12,8 @@ export default class Hello implements CommandInterface  {
       type: 'string'
     }
   ];
-  handler(args: Arguments) {
-    console.log('hello', args.options.get('mesage'));
+  handler(options: Options) {
+    console.log('hello', options.get('mesage'));
   }
 };
 

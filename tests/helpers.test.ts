@@ -1,4 +1,4 @@
-import { Arguments, CommandInterface, getFlags, pad, showHelp, Rule, All } from '../src';
+import { Arguments, CommandInterface, getFlags, pad, showHelp, Rule } from '../src';
 
 describe('yax-cli', () => {
   test('resolve validations', () => {
@@ -21,7 +21,6 @@ describe('yax-cli', () => {
   test('show help', () => {
     const cmd: CommandInterface = {
       description: 'cli',
-      commands: [],
       examples: [],
       handler: () => {},
       validations: []
@@ -32,7 +31,7 @@ describe('yax-cli', () => {
       path: 'cwd/bin',
       bin: 'bin',
       command: 'test',
-      options: new Map<string, All>()
+      flags: []
     };
     showHelp(cmd, args);
   });
@@ -40,7 +39,6 @@ describe('yax-cli', () => {
   test('show help', () => {
     const cmd: CommandInterface = {
       description: 'cli',
-      commands: ['print'],
       examples: ['cli move --file readme.md'],
       handler: () => {},
       validations: [ {
@@ -59,7 +57,7 @@ describe('yax-cli', () => {
       path: 'cwd/bin',
       bin: 'bin',
       command: 'test',
-      options: new Map<string, All>()
+      flags: []
     };
     showHelp(cmd, args);
   });
