@@ -9,7 +9,7 @@ export type Validations = {
     description: string,
     required: boolean,
     type: 'boolean' | 'string' | 'array'
-    default: AllTypes
+    default?: AllTypes
   }
 }
 export type Arguments = {
