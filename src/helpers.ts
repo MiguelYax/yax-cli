@@ -1,7 +1,7 @@
 import { Arguments, CommandInterface, Rule } from "./types";
 
 export const toList = (title: string, items: string[]) : string[] => {
-    return items.length ? [`${title}`, ...items.map((i) => `  - ${i}`)] : [];
+  return items.length ? [`${title}`, ...items.map((i) => `  - ${i}`)] : [];
 };
 
 export const pad =(n:number) : string => {

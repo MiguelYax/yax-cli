@@ -26,8 +26,6 @@
 //   ops[rule.flag] = value;
 // }
 
-
-
 // export const verify = (options: Optio, validations: Rule[]) : Arguments => {
 //   if (validations.length) {
 //     const ops: Options<string | string[] | boolean> = {}

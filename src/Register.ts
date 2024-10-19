@@ -25,13 +25,13 @@ export class Register implements CommandInterface {
   examples = [];
   description: string;
   validations: Rule[] = [{
-      flag: 'help',
-      alias: 'h',
-      description: "Display help",
-      required: false, 
-      type: 'boolean',
-      default: false
-    }];
+    flag: 'help',
+    alias: 'h',
+    description: "Display help",
+    required: false, 
+    type: 'boolean',
+    default: false
+  }];
   
   constructor(options: RegisterOptions) {
     this.args = parser(options.process.argv);
@@ -49,12 +49,12 @@ export class Register implements CommandInterface {
       const relativePath = `${this.options.commandsPath}/${this.args.command}`;
       log('[CMD PATH]', relativePath);
       import(relativePath) 
-      .then((module) => {
-        log('MODULE:', module);
-        const Command = module.default;
-        const cmd = isClass(Command) ? new Command : Command;
-        cmd.handler();
-      });
+        .then((module) => {
+          log('MODULE:', module);
+          const Command = module.default;
+          const cmd = isClass(Command) ? new Command : Command;
+          cmd.handler();
+        });
     } else { 
       showHelp(this, this.args);
     }

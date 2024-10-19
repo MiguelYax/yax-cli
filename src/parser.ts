@@ -24,23 +24,21 @@ export const parser = (argv: string[]): Arguments => {
     const next = opts[i + 1];
     const flag = current.replace(/^[-]+/g, '');
     switch (true) {
-      case isFlag(current) && (next === undefined || isFlag(next)):
-        options.set(flag, true);
-        break;
-      case isFlag(current) && !isFlag(next):
-        if (hasMore(current, opts)) {
-          if (options.has(flag)) {
-            const temp = <string[]>options.get(flag);
-            options.set(flag, [...temp, next]);
-          } else {
-            options.set(flag, [next]);
-          }
+    case isFlag(current) && (next === undefined || isFlag(next)):
+      options.set(flag, true);
+      break;
+    case isFlag(current) && !isFlag(next):
+      if (hasMore(current, opts)) {
+        if (options.has(flag)) {
+          const temp = <string[]>options.get(flag);
+          options.set(flag, [...temp, next]);
         } else {
-          options.set(flag, next);
+          options.set(flag, [next]);
         }
-        break;
-      default:
-        break;
+      } else {
+        options.set(flag, next);
+      }
+      break;
     }
   }
   return {
