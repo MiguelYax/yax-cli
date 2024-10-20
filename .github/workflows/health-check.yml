@@ -3,7 +3,6 @@ name: Health Check
 on:
   push:
     branches:
-      - main
       - 'feature/**'
   pull_request:
 
