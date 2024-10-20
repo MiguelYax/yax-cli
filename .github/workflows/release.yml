@@ -10,6 +10,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 permissions: {}
 jobs:
   release:
+    needs: health_check
     permissions:
       contents: write # to create release 
       issues: write # to post issue comments
