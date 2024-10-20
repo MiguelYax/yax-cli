@@ -12,6 +12,7 @@ describe('Register mecanism', () => {
       const proc = {
         argv: ['node', 'cwd/bin', ...cmd.split(' ')]
       };
+      console.log('SHELL:', proc.argv)
       cli.runtime(proc);
     };
   });
