@@ -33,7 +33,7 @@ export class Register implements CommandInterface {
     this.resolve(this, this.process);
   }
 
-  static print (content: string[]) :void {
+  static print(content: string[]): void {
     logger.log(content.join('\n'));
   }
 
@@ -51,16 +51,15 @@ export class Register implements CommandInterface {
     }
   }
 
-  handler(ops: Options, args: Arguments) {
+  async handler(ops: Options, args: Arguments) {
     if (args.command && this.commands.includes(args.command)) {
       const relativePath = `${this.commandsPath}/${args.command}`;
-      import(relativePath)
-        .then((module) => {
-          const Command = module.default;
-          const cmd = isClass(Command) ? new Command() : Command;
-          
-          this.resolve(cmd, this.process);
-        });
+      const module = await import(relativePath);
+
+      const Command = module.default;
+      const cmd = isClass(Command) ? new Command() : Command;
+
+      this.resolve(cmd, this.process);
     } else {
       this.errors = [`Command not found: ${args.command}`];
       Register.print(showHelp(this, args, this.commands, this.errors));
