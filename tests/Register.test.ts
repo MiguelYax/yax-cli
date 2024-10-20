@@ -8,10 +8,10 @@ const shell = (command: string) => {
       argv: ['node', 'cwd/bin', ...command.split(' ')]
     }
   });
-  logger.debug(cli.process)
+  logger.debug(cli.process);
 
   return cli;
-}
+};
 
 describe.only('Register mecanism', () => {
 
@@ -24,7 +24,7 @@ describe.only('Register mecanism', () => {
         expect.arrayContaining(
           ["USAGE: bin <COMMAND> [OPTIONS]", "DESCRIPTION: Country CLI", "COMMANDS:", "  - find", "  - search", "OPTIONS:", "--help, -h                             (optional) Display help"]
         )
-      )
+      );
       print.mockRestore();
     });
 
@@ -36,7 +36,7 @@ describe.only('Register mecanism', () => {
         expect.arrayContaining(
           ["USAGE: bin <COMMAND> [OPTIONS]", "COMMAND: unknown", "DESCRIPTION: Country CLI", "COMMANDS:", "  - find", "  - search", "ERRORS:", "  - Command not found: unknown", "OPTIONS:", "--help, -h                             (optional) Display help"]
         )
-      )
+      );
       print.mockRestore();
     });
 
@@ -46,20 +46,20 @@ describe.only('Register mecanism', () => {
       expect(log).toHaveBeenCalledTimes(1);
       expect(log).toHaveBeenCalledWith(
         expect.stringContaining('The flag: --name is required!')
-      )
+      );
       log.mockRestore();
     });
   });
 
   describe('serarch command (exported as object)', () => {
     test('should search a country', () => {
-      const log = jest.spyOn(logger, 'log')
+      const log = jest.spyOn(logger, 'log');
 
       shell('search --name a');
       expect(log).toHaveBeenCalledTimes(1);
       expect(log).toHaveBeenCalledWith(
         expect.stringContaining('Guatemala')
-      )
+      );
       log.mockRestore();
     });
   
@@ -71,7 +71,7 @@ describe.only('Register mecanism', () => {
         expect.arrayContaining(
           ["Costa Rica", "El Salvador", "Guatemala"]
         )
-      )
+      );
       log.mockRestore();
     });
   });
@@ -82,7 +82,7 @@ describe.only('Register mecanism', () => {
       expect(log).toHaveBeenCalledTimes(1);
       expect(log).toHaveBeenCalledWith(
         expect.stringContaining('Guatemala')
-      )
+      );
       log.mockRestore();
     });
   });

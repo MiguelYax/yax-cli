@@ -3,5 +3,5 @@ export const logger = {
   error: console.error,
   warn: console.warn,
   debug: console.debug
-}
+};
 

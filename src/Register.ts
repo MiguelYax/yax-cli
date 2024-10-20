@@ -41,7 +41,7 @@ export class Register implements CommandInterface {
     this.commands = readdirSync(this.commandsPath);
     const result = verify(options, context.validations);
     if (!args.command || options.get('help') || !result.isValid) {
-     Register.print(showHelp(context, args, this.commands, result.errors));
+      Register.print(showHelp(context, args, this.commands, result.errors));
     } else {
       context.handler(options, args);
     }
