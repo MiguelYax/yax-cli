@@ -2,7 +2,7 @@ import { Register, logger } from "../src";
 
 const shell = (command: string) => {
   const cli = new Register({
-    description: 'Country CLI',
+    description: 'Country Command Line Tool',
     commandsPath: `${__dirname}/cmds`,
     process:  {
       argv: ['node', 'cwd/bin', ...command.split(' ')]
