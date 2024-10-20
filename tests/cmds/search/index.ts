@@ -27,7 +27,9 @@ const Search: CommandInterface = {
   handler(options: Options) {
     const name = <string>options.get('name');
     const limit = <number>options.get('limit');
-    const result = contries.filter((c) => c.name.includes(name));
+    const result = contries
+      .filter((c) => c.name.includes(name))
+      .map((c) => c.name);
     console.log(result.slice(0, limit));
   }
 };
