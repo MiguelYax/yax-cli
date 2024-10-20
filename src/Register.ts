@@ -1,6 +1,6 @@
 import { readdirSync } from "fs";
 import { parser, getArgs } from "./parser";
-import { Arguments, CommandInterface, Rule } from "./types";
+import { Arguments, CommandInterface, Options, Rule } from "./types";
 import { showHelp } from "./helpers";
 import { verify } from "./validations";
 import debug from 'debug';
@@ -9,10 +9,11 @@ const log = debug('yax-cli:Register');
 
 export type RegisterOptions = {
   commandsPath: string;
-  description?: string;
-  process: {
-    argv: string[]
-  }
+  description: string;
+}
+
+export type ProcessType = {
+  argv: string[]
 }
 
 const isClass = (v: CommandInterface | object): boolean => {
@@ -20,51 +21,55 @@ const isClass = (v: CommandInterface | object): boolean => {
 };
 
 export class Register implements CommandInterface {
-  commands: string[];
-  args: Arguments;
-  options: RegisterOptions;
   examples = [];
+  commands: string[] = [];
   description: string;
+  commandsPath: string;
   validations: Rule[] = [{
     flag: 'help',
     alias: 'h',
     description: "Display help",
-    required: false, 
+    required: false,
     type: 'boolean',
     default: false
   }];
-  
-  constructor(options: RegisterOptions) {
-    this.args = getArgs(options.process.argv);
-    this.commands = readdirSync(options.commandsPath);
-    this.description = options.description ?? '';
-    this.options = options;
-  
-    this.handler();
+
+  constructor(ops: RegisterOptions) {
+    this.commandsPath = ops.commandsPath;
+    this.description = ops.description;
   }
 
-  handler() {
-    log('[COMMANDS]', this.commands);
-    log('[ARGUMENTS]', this.args);
-    if (this.commands.includes(this.args.command)) {
-      const relativePath = `${this.options.commandsPath}/${this.args.command}`;
+  runtime (process: ProcessType) {
+    const args = getArgs(process.argv);
+    const options = parser(args.flags);
+    this.commands = readdirSync(this.commandsPath);
+    if (!args.command && (options.get('help') || options.get('h'))) {
+      showHelp(this, args, this.commands);
+    } else {
+      this.handler(options, args);
+    }
+  }
+
+  handler(ops: Options, args: Arguments) {
+    log('[ARGUMENTS]', args);
+    if (this.commands.includes(args.command)) {
+      const relativePath = `${this.commandsPath}/${args.command}`;
       log('[CMD PATH]', relativePath);
-      import(relativePath) 
+      import(relativePath)
         .then((module) => {
           log('MODULE:', module);
           const Command = module.default;
           const cmd = isClass(Command) ? new Command : Command;
-    
-          const options = parser(this.args.flags);
+
+          const options = parser(args.flags);
           if (verify(options, cmd.validations)) {
-            cmd.handler();
+            cmd.handler(options);
           } else {
-            showHelp(cmd, this.args, [])
+            showHelp(cmd, args, []);
           }
-          
         });
-    } else { 
-      showHelp(this, this.args, this.commands);
+    } else {
+      showHelp(this, args, this.commands);
     }
   }
 }

@@ -1,50 +1,44 @@
 import { Register } from "../src";
 
+let shell: (cmd: string) => void;
 describe('Register mecanism', () => {
-
-  test('register and call one command', () => {
+  beforeAll(() => {
     const commandsPath = `${__dirname}/cmds`;
-    const proc = {
-      argv: ['node', 'cwd/bin', 'hello']
+    const cli = new Register({
+      description: 'Country CLI',
+      commandsPath
+    });
+    shell = (cmd: string) => {
+      const proc = {
+        argv: ['node', 'cwd/bin', ...cmd.split(' ')]
+      };
+      cli.runtime(proc);
     };
-    new Register({
-      description: 'my fist cli',
-      commandsPath,
-      process: proc
+  });
+
+  test('should show help', () => {
+    shell('--help');
+  });
+
+  describe('using search command', () => {
+    test('', () => {
+      shell('search --name Andorra');
+    });
+    
+    test('', () => {
+      shell('search');
+    });
+
+    test('register and call one unexisting command', () => {
+      shell('search --name Andorra');
+    });
+  
+    test('register and call one unexisting command', () => {
+      shell('search --name ania --limit 5');
     });
   });
 
   test('register and call one command and the class has constructor', () => {
-    const commandsPath = `${__dirname}/cmds`;
-    const proc = {
-      argv: ['node', 'cwd/bin', 'bye']
-    };
-    new Register({
-      commandsPath,
-      process: proc
-    });
+    shell('find --code GT');
   });
-
-  test('register and call one unexisting command', () => {
-    const commandsPath = `${__dirname}/cmds`;
-    const proc = {
-      argv: ['node', 'cwd/bin', 'add']
-    };
-    new Register({
-      commandsPath,
-      process: proc
-    });
-  });
-
-  test('register and call one unexisting command', () => {
-    const commandsPath = `${__dirname}/cmds`;
-    const proc = {
-      argv: ['node', 'cwd/bin', 'run']
-    };
-    new Register({
-      commandsPath,
-      process: proc
-    });
-  });
-
 });

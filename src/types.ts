@@ -22,6 +22,6 @@ export type Arguments = {
 export interface CommandInterface {
   description: string,
   examples: string[],
-  handler: (options: Options)=> void;
+  handler: (options: Options, args: Arguments)=> void;
   validations: Rule[]
 }
