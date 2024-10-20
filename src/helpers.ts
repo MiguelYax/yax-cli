@@ -20,11 +20,12 @@ export const getFlags = (validations: Rule[]): string[] => {
   return validations.length > 0 ? ['FLAGS:', ...flags] : [];
 };
 
-export const showHelp = (cmd: CommandInterface, args: Arguments, commands:string[] = []): void => {
+export const showHelp = (cmd: CommandInterface, args: Arguments, commands:string[] = [], errors: string[] = []): void => {
   const text = [
     `USAGE: ${args.bin} <command> [options]`,
     ...toList('COMMANDS', commands),
     ...toList('EXAMPLES', cmd.examples),
+    ...toList('ERRORS', errors),
     ...getFlags(cmd.validations)
   ];
 

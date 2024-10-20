@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   health_check:
-    name: Set 
+    name: Health check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

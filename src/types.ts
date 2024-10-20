@@ -1,4 +1,4 @@
-export type All = boolean | string | number | string[] | number[]
+export type All = boolean | string | number | number[] | string[]
 
 export type Options =  Map<string, All>;
 
@@ -8,7 +8,7 @@ export type Rule = {
     description: string,
     required: boolean,
     list?: boolean,
-    type: 'boolean' | 'string' | 'number'
+    type: 'boolean' | 'string' | 'number' | 'list'
     default?: All
 }
 export type Arguments = {
@@ -24,4 +24,13 @@ export interface CommandInterface {
   examples: string[],
   handler: (options: Options, args: Arguments)=> void;
   validations: Rule[]
+}
+
+export type RegisterOptions = {
+  commandsPath: string;
+  description: string;
+}
+
+export type ProcessType = {
+  argv: string[]
 }

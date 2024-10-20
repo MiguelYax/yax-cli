@@ -1,12 +1,8 @@
-import { All, Arguments, Options } from "./types";
+import { All, Arguments, Options, Rule } from "./types";
 import { basename } from "path";
 
 const isFlag = (key: string): boolean => {
   return key.startsWith('-');
-};
-
-const hasMore = (flag: string, argv: string[]): boolean => {
-  return argv.filter((i) => i === flag )?.length > 1;
 };
 
 export const getArgs = (argv: string[]): Arguments => {
@@ -26,7 +22,11 @@ export const getArgs = (argv: string[]): Arguments => {
   };
 };
 
-export const parser = (flags: string[]): Options => {
+export const isList = (flag: string, validations: Rule[]): boolean => {
+  return validations.some((v) => ((v.flag === flag || v.alias === flag) && v.type === 'list'));
+};
+
+export const parser = (flags: string[], validations: Rule[]): Options => {
   const options = new Map<string, All>();
 
   for (let i = 0; i < flags.length; i++) {
@@ -38,7 +38,7 @@ export const parser = (flags: string[]): Options => {
       options.set(flag, true);
       break;
     case isFlag(current) && !isFlag(next):
-      if (hasMore(current, flags)) {
+      if (isList(flag, validations)) {
         if (options.has(flag)) {
           const temp = <string[]>options.get(flag);
           options.set(flag, [...temp, next]);

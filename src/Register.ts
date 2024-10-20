@@ -1,20 +1,11 @@
 import { readdirSync } from "fs";
 import { parser, getArgs } from "./parser";
-import { Arguments, CommandInterface, Options, Rule } from "./types";
+import { Arguments, CommandInterface, Options, Rule, RegisterOptions, ProcessType } from "./types";
 import { showHelp } from "./helpers";
 import { verify } from "./validations";
 import debug from 'debug';
 
 const log = debug('yax-cli:Register');
-
-export type RegisterOptions = {
-  commandsPath: string;
-  description: string;
-}
-
-export type ProcessType = {
-  argv: string[]
-}
 
 const isClass = (v: CommandInterface | object): boolean => {
   return typeof v === 'function' && /^\s*class\s+/.test(v.toString());
@@ -41,9 +32,9 @@ export class Register implements CommandInterface {
 
   runtime (process: ProcessType) {
     const args = getArgs(process.argv);
-    const options = parser(args.flags);
+    const options = parser(args.flags, this.validations);
     this.commands = readdirSync(this.commandsPath);
-    if (!args.command && (options.get('help') || options.get('h'))) {
+    if (!args.command || options.get('help')) {
       showHelp(this, args, this.commands);
     } else {
       this.handler(options, args);
@@ -61,11 +52,12 @@ export class Register implements CommandInterface {
           const Command = module.default;
           const cmd = isClass(Command) ? new Command : Command;
 
-          const options = parser(args.flags);
-          if (verify(options, cmd.validations)) {
+          const options = parser(args.flags, cmd.validations);
+          const result = verify(options, cmd.validations);
+          if (result.isValid) {
             cmd.handler(options);
           } else {
-            showHelp(cmd, args, []);
+            showHelp(cmd, args, [], result.errors);
           }
         });
     } else {
