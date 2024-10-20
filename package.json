@@ -1,6 +1,6 @@
 {
   "name": "yax-cli",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Yet another command line tool using Javascript. (By the way my last name is Yax)",
   "main": "dist/index.js",
   "types": "/dist/index.d.ts",
@@ -14,8 +14,11 @@
     "lint:fix": "eslint . --fix --ignore-pattern dist",
     "build": "tsc",
     "coverage": "open ./coverage/lcov-report/index.html",
-    "release": "changeset status && changeset version",
-    "postrelease": "npm pkg get version | xargs -t git tag && git push && git push --tags"
+    "bump": "changeset status && changeset version",
+    "tag": "npm pkg get version | xargs -t git tag ",
+    "push": "git push && git push --tags",
+    "commit": "git commit --no-verify -am '#Release'",
+    "release": "npm run bump && npm run tag && npm run commit && npm run push"
   },
   "keywords": [
     "javascript",
