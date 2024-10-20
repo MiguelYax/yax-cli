@@ -1,0 +1,12 @@
+name: 'CI setup'
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js 20.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20.x
+
+    - name: Install Dependencies
+      run: npm ci
+      shell: bash

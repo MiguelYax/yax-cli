@@ -1,0 +1,31 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+      - next
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions: {}
+jobs:
+  release:
+    permissions:
+      contents: write # to create release 
+      issues: write # to post issue comments
+      pull-requests: write # to create pull request 
+
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/ci-setup
+
+      - name: Publish to npm
+        uses: changesets/action@v1
+        with:
+          publish: npm run release
+          version: npm run version-packages
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

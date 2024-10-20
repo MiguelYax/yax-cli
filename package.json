@@ -14,7 +14,7 @@
     "lint:fix": "eslint . --fix --ignore-pattern dist",
     "build": "tsc",
     "coverage": "open ./coverage/lcov-report/index.html",
-    "bump": "changeset status && changeset version",
+    "version-packages": "changeset version && npm i --package-lock-only",
     "tag": "npm pkg get version | xargs -t git tag ",
     "push": "git push && git push --tags",
     "commit": "git commit --no-verify -am '#Release'",
