@@ -19,6 +19,6 @@ export default class Cmd implements CommandInterface {
   handler(options: Options) {
     const code = options.get('code');
     const result = contries.find((c) => c.code === code);
-    console.log(result);
+    console.log(result?.name);
   }
 };

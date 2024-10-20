@@ -1,4 +1,7 @@
 import { Register } from "../src";
+import debug from "debug";
+
+const log =  debug('yax-cli:test');
 
 let shell: (cmd: string) => void;
 describe('Register mecanism', () => {
@@ -12,7 +15,7 @@ describe('Register mecanism', () => {
       const proc = {
         argv: ['node', 'cwd/bin', ...cmd.split(' ')]
       };
-      console.log('SHELL:', proc.argv);
+      log('SHELL:', proc.argv);
       cli.runtime(proc);
     };
   });

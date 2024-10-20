@@ -21,8 +21,9 @@ export const getFlags = (validations: Rule[]): string[] => {
 };
 
 export const showHelp = (cmd: CommandInterface, args: Arguments, commands:string[] = [], errors: string[] = []): void => {
+  const command = args.command ?? ' <command>';
   const text = [
-    `USAGE: ${args.bin} <command> [options]`,
+    `USAGE: ${args.bin} ${command} [options]`,
     ...toList('COMMANDS', commands),
     ...toList('EXAMPLES', cmd.examples),
     ...toList('ERRORS', errors),
