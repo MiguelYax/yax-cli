@@ -1,11 +1,12 @@
 import { CommandInterface, Options } from '../../../src/types';
-import contries from '../countries';
+
+const centralAmericaCountries = [ "Belice", "Costa Rica", "El Salvador", "Guatemala", "Honduras", "Nicaragua", "Panamá" ]
 
 const Search: CommandInterface = {
   description :"Search country",
   examples : [
-    'country search --name Andorra',
-    'country search --name ania --limit 2'
+    'country search --name a',
+    'country search --name li --limit 2'
   ],
   validations:[
     {
@@ -27,9 +28,9 @@ const Search: CommandInterface = {
   handler(options: Options) {
     const name = <string>options.get('name');
     const limit = <number>options.get('limit');
-    const result = contries
-      .filter((c) => c.name.includes(name))
-      .map((c) => c.name);
+    const result = centralAmericaCountries
+      .filter((c) => c.includes(name));
+
     console.log(result.slice(0, limit));
   }
 };

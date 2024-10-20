@@ -1,24 +1,25 @@
 import { CommandInterface, Options, Rule } from "../../../src";
-import contries  from '../countries';
+
+const centralAmericaCountries = [ "Belice", "Costa Rica", "El Salvador", "Guatemala", "Honduras", "Nicaragua", "Panamá" ]
 
 export default class Cmd implements CommandInterface {
-  description = 'Bye command';
+  description = 'Find country by name';
   examples = [
-    'country find --code GT',
-    'country find -c US'
+    'country find --name Guatemala',
+    'country find -n Belice'
   ];
   validations: Rule[] = [
     {
-      flag: 'code',
-      alias: 'c',
-      description: "Country code",
+      flag: 'name',
+      alias: 'n',
+      description: "Country name",
       required: true,
       type: 'string'
     }
   ];
   handler(options: Options) {
-    const code = options.get('code');
-    const result = contries.find((c) => c.code === code);
-    console.log(result?.name);
+    const name = options.get('name');
+    const result = centralAmericaCountries.find((c) => c === name);
+    console.log(result);
   }
 };

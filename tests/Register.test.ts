@@ -33,20 +33,18 @@ describe('Register mecanism', () => {
     })
   });
 
-
-
   describe('serarch command (exported as object)', () => {
     test('should search a country', () => {
-      shell('search --name Andorra');
+      shell('search --name a');
     });
   
     test('should search country and use limit', () => {
-      shell('search --name ania --limit 5');
+      shell('search --name e --limit 5');
     });
   });
   describe('find command (exported as class)', () => {
     test('register and call one command and the class has constructor', () => {
-      shell('find --code GT');
+      shell('find --name Guatemala');
     });
   })
 });
