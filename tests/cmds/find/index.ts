@@ -20,6 +20,6 @@ export default class Cmd implements CommandInterface {
   handler(options: Options) {
     const name = options.get('name');
     const result = centralAmericaCountries.find((c) => c === name);
-    console.log(result);
+    console.log(result?.toString());
   }
 };

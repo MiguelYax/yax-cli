@@ -1,4 +1,4 @@
-import { readdirSync } from "fs";
+import { readdirSync } from "node:fs";
 import { parser, getArgs } from "./parser";
 import { Arguments, CommandInterface, Options, Rule, RegisterOptions, ProcessType } from "./types";
 import { showHelp } from "./helpers";
@@ -28,6 +28,11 @@ export class Register implements CommandInterface {
   constructor(ops: RegisterOptions) {
     this.commandsPath = ops.commandsPath;
     this.description = ops.description;
+    
+  }
+
+  print (content: string[]) :void {
+    console.log(content.join('\n'));
   }
 
   runtime (process: ProcessType) {
@@ -35,20 +40,17 @@ export class Register implements CommandInterface {
     const options = parser(args.argv, this.validations);
     this.commands = readdirSync(this.commandsPath);
     if (!args.command || options.get('help')) {
-      showHelp(this, args, this.commands);
+    this.print(showHelp(this, args, this.commands));
     } else {
       this.handler(options, args);
     }
   }
 
   handler(ops: Options, args: Arguments) {
-    log('[ARGUMENTS]', args);
     if (args.command && this.commands.includes(args.command)) {
       const relativePath = `${this.commandsPath}/${args.command}`;
-      log('[CMD PATH]', relativePath);
       import(relativePath)
         .then((module) => {
-          log('MODULE:', module);
           const Command = module.default;
           const cmd = isClass(Command) ? new Command : Command;
 
@@ -57,11 +59,11 @@ export class Register implements CommandInterface {
           if (result.isValid) {
             cmd.handler(options);
           } else {
-            showHelp(cmd, args, [], result.errors);
+            this.print(showHelp(cmd, args, [], result.errors));
           }
         });
     } else {
-      showHelp(this, args, this.commands, [`Command not found: ${args.command}`]);
+      this.print(showHelp(this, args, this.commands, [`Command not found: ${args.command}`]));
     }
   }
 }

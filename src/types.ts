@@ -24,6 +24,7 @@ export interface CommandInterface {
   examples: string[],
   handler: (options: Options, args: Arguments)=> void;
   validations: Rule[]
+  commands?: string[]
 }
 
 export type RegisterOptions = {

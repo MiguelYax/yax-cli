@@ -20,9 +20,9 @@ export const getFlags = (validations: Rule[]): string[] => {
   return validations.length > 0 ? ['OPTIONS:', ...flags] : [];
 };
 
-export const showHelp = (cmd: CommandInterface, args: Arguments, commands: string[] = [], errors: string[] = []): void => {
+export const showHelp = (cmd: CommandInterface, args: Arguments, commands: string[] = [], errors: string[] = []): string[] => {
   const commandInfo = args.command ? [`COMMAND: ${args.command}`] : [];
-  const text = [
+  const content = [
     `USAGE: ${args.bin} <COMMAND> [OPTIONS]`,
     ...commandInfo,
     `DESCRIPTION: ${cmd.description}`,
@@ -31,6 +31,6 @@ export const showHelp = (cmd: CommandInterface, args: Arguments, commands: strin
     ...toList('ERRORS', errors),
     ...getFlags(cmd.validations)
   ];
-
-  console.log(text.join('\n'));
+  
+  return content;
 };
