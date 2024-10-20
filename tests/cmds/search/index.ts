@@ -1,13 +1,13 @@
 import { CommandInterface, Options, Rule } from '../../../src/types';
 import contries from '../countries';
 
-export default class Hello implements CommandInterface {
-  description = "Search country";
-  examples = [
+ const Search: CommandInterface = {
+  description :"Search country",
+  examples : [
     'country search --name Andorra',
     'country search --name ania --limit 2'
-  ];
-  validations: Rule[] = [
+  ],
+  validations:[
     {
       flag: 'name',
       alias: 'n',
@@ -23,7 +23,7 @@ export default class Hello implements CommandInterface {
       type: 'number',
       default: 3
     } 
-  ];
+  ],
   handler(options: Options) {
     const name = <string>options.get('name');
     const limit = <number>options.get('limit');
@@ -32,3 +32,4 @@ export default class Hello implements CommandInterface {
   }
 };
 
+export default Search;
