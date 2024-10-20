@@ -32,6 +32,7 @@ describe('Register mecanism', () => {
       });
       test('should load a object module', () => {
         const cli = shell('search --name li --limit 2');
+        expect(cli.errors).toEqual([])
       });
     });
   });
