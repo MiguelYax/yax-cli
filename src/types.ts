@@ -30,6 +30,7 @@ export interface CommandInterface {
 export type RegisterOptions = {
   commandsPath: string;
   description: string;
+  process: ProcessType
 }
 
 export type ProcessType = {

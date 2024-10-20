@@ -1,4 +1,4 @@
-import { CommandInterface, Options, Rule } from "../../../src";
+import { CommandInterface, Options, Rule, logger } from "../../../src";
 
 const centralAmericaCountries = [ "Belice", "Costa Rica", "El Salvador", "Guatemala", "Honduras", "Nicaragua", "Panamá" ];
 
@@ -19,7 +19,7 @@ export default class Cmd implements CommandInterface {
   ];
   handler(options: Options) {
     const name = options.get('name');
-    const result = centralAmericaCountries.find((c) => c === name);
-    console.log(result?.toString());
+    const result = centralAmericaCountries.find((c) => c === name) ?? [];
+    logger.log(result);
   }
 };

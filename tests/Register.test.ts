@@ -1,24 +1,23 @@
-import { Register } from "../src";
+import { Register, logger } from "../src";
 
-const commandsPath = `${__dirname}/cmds`;
-const cli = new Register({
-  description: 'Country CLI',
-  commandsPath
-});
+const shell = (command: string) => {
+  const cli = new Register({
+    description: 'Country CLI',
+    commandsPath: `${__dirname}/cmds`,
+    process:  {
+      argv: ['node', 'cwd/bin', ...command.split(' ')]
+    }
+  });
+  logger.debug(cli.process)
 
-const shell = (cmd: string) => {
-  const proc = {
-    argv: ['node', 'cwd/bin', ...cmd.split(' ')]
-  };
-  console.debug(proc);
-  cli.runtime(proc);
-};
+  return cli;
+}
 
 describe.only('Register mecanism', () => {
 
   describe('help', () => {
     test('should show help', () => {
-      const print = jest.spyOn(cli, 'print');
+      const print = jest.spyOn(Register, 'print');
       shell('--help');
       expect(print).toHaveBeenCalledTimes(1);
       expect(print).toHaveBeenCalledWith(
@@ -30,7 +29,7 @@ describe.only('Register mecanism', () => {
     });
 
     test('should show help with not fould command', () => {
-      const print = jest.spyOn(cli, 'print');
+      const print = jest.spyOn(Register, 'print');
       shell('unknown');
       expect(print).toHaveBeenCalledTimes(1);
       expect(print).toHaveBeenCalledWith(
@@ -42,19 +41,19 @@ describe.only('Register mecanism', () => {
     });
 
     test('should show help with required options', () => {
-      const print = jest.spyOn(cli, 'print');
+      const log = jest.spyOn(Register,'print');
       shell('search'); 
-      expect(print).toHaveBeenCalledTimes(1);
-      expect(print).toHaveBeenCalledWith(
-        expect.stringContaining('USAGE:')
+      expect(log).toHaveBeenCalledTimes(1);
+      expect(log).toHaveBeenCalledWith(
+        expect.stringContaining('The flag: --name is required!')
       )
-      print.mockRestore();
+      log.mockRestore();
     });
   });
 
   describe('serarch command (exported as object)', () => {
     test('should search a country', () => {
-      const log = jest.spyOn(console, 'log')
+      const log = jest.spyOn(logger, 'log')
 
       shell('search --name a');
       expect(log).toHaveBeenCalledTimes(1);
@@ -65,7 +64,7 @@ describe.only('Register mecanism', () => {
     });
   
     test('should search country and use limit', () => {
-      const log = jest.spyOn(console, 'log');
+      const log = jest.spyOn(logger, 'log');
       shell('search --name e --limit 5');
       expect(log).toHaveBeenCalledTimes(1);
       expect(log).toHaveBeenCalledWith(
@@ -78,7 +77,7 @@ describe.only('Register mecanism', () => {
   });
   describe('find command (exported as class)', () => {
     test('register and call one command and the class has constructor', () => {
-      const log = jest.spyOn(global.console, 'log');
+      const log = jest.spyOn(logger, 'log');
       shell('find --name Guatemala');
       expect(log).toHaveBeenCalledTimes(1);
       expect(log).toHaveBeenCalledWith(
