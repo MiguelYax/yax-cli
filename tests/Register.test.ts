@@ -25,12 +25,12 @@ describe('Register mecanism', () => {
     });
 
     test('should show help with not fould command', () => {
-      shell('unknown')
-    })
+      shell('unknown');
+    });
 
     test('should show help regarding required options', () => {
-      shell('search') 
-    })
+      shell('search'); 
+    });
   });
 
   describe('serarch command (exported as object)', () => {
@@ -46,5 +46,5 @@ describe('Register mecanism', () => {
     test('register and call one command and the class has constructor', () => {
       shell('find --name Guatemala');
     });
-  })
+  });
 });

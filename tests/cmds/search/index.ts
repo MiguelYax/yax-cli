@@ -1,6 +1,6 @@
 import { CommandInterface, Options } from '../../../src/types';
 
-const centralAmericaCountries = [ "Belice", "Costa Rica", "El Salvador", "Guatemala", "Honduras", "Nicaragua", "Panamá" ]
+const centralAmericaCountries = [ "Belice", "Costa Rica", "El Salvador", "Guatemala", "Honduras", "Nicaragua", "Panamá" ];
 
 const Search: CommandInterface = {
   description :"Search country",

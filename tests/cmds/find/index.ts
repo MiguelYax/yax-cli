@@ -1,6 +1,6 @@
 import { CommandInterface, Options, Rule } from "../../../src";
 
-const centralAmericaCountries = [ "Belice", "Costa Rica", "El Salvador", "Guatemala", "Honduras", "Nicaragua", "Panamá" ]
+const centralAmericaCountries = [ "Belice", "Costa Rica", "El Salvador", "Guatemala", "Honduras", "Nicaragua", "Panamá" ];
 
 export default class Cmd implements CommandInterface {
   description = 'Find country by name';
