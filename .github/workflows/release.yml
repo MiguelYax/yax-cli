@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - next
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -28,4 +27,5 @@ jobs:
           publish: npm run release
           version: npm run version-packages
         env:
+          GITHUB_TOKEN: ${{ secrets.TOOLBOOX_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

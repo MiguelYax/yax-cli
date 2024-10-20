@@ -15,10 +15,7 @@
     "build": "tsc",
     "coverage": "open ./coverage/lcov-report/index.html",
     "version-packages": "changeset version && npm i --package-lock-only",
-    "tag": "npm pkg get version | xargs -t git tag ",
-    "push": "git push && git push --tags",
-    "commit": "git commit --no-verify -am '#Release'",
-    "release": "npm run bump && npm run tag && npm run commit && npm run push"
+    "release": "npm run build && changeset publish"
   },
   "keywords": [
     "javascript",
