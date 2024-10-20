@@ -16,30 +16,34 @@ describe('Register mecanism', () => {
       cli.runtime(proc);
     };
   });
+  describe('help', () => {
+    test('should show help', () => {
+      shell('--help');
+    });
 
-  test('should show help', () => {
-    shell('--help');
+    test('should show help with not fould command', () => {
+      shell('unknown')
+    })
+
+    test('should show help regarding required options', () => {
+      shell('search') 
+    })
   });
 
-  describe('using search command', () => {
-    test('', () => {
-      shell('search --name Andorra');
-    });
-    
-    test('', () => {
-      shell('search');
-    });
 
-    test('register and call one unexisting command', () => {
+
+  describe('serarch command (exported as object)', () => {
+    test('should search a country', () => {
       shell('search --name Andorra');
     });
   
-    test('register and call one unexisting command', () => {
+    test('should search country and use limit', () => {
       shell('search --name ania --limit 5');
     });
   });
-
-  test('register and call one command and the class has constructor', () => {
-    shell('find --code GT');
-  });
+  describe('find command (exported as class)', () => {
+    test('register and call one command and the class has constructor', () => {
+      shell('find --code GT');
+    });
+  })
 });

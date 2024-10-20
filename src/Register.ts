@@ -32,7 +32,7 @@ export class Register implements CommandInterface {
 
   runtime (process: ProcessType) {
     const args = getArgs(process.argv);
-    const options = parser(args.flags, this.validations);
+    const options = parser(args.argv, this.validations);
     this.commands = readdirSync(this.commandsPath);
     if (!args.command || options.get('help')) {
       showHelp(this, args, this.commands);
@@ -52,7 +52,7 @@ export class Register implements CommandInterface {
           const Command = module.default;
           const cmd = isClass(Command) ? new Command : Command;
 
-          const options = parser(args.flags, cmd.validations);
+          const options = parser(args.argv, cmd.validations);
           const result = verify(options, cmd.validations);
           if (result.isValid) {
             cmd.handler(options);

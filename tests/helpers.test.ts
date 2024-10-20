@@ -31,7 +31,7 @@ describe('yax-cli', () => {
       path: 'cwd/bin',
       bin: 'bin',
       command: 'test',
-      flags: []
+      argv: []
     };
     showHelp(cmd, args);
   });
@@ -57,7 +57,7 @@ describe('yax-cli', () => {
       path: 'cwd/bin',
       bin: 'bin',
       command: 'test',
-      flags: []
+      argv: []
     };
     showHelp(cmd, args);
   });

@@ -16,7 +16,7 @@ export type Arguments = {
   bin: string, 
   path: string;
   command: string,
-  flags: string[]
+  argv: string[]
 }
 
 export interface CommandInterface {

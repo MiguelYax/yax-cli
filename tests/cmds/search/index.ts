@@ -1,7 +1,7 @@
-import { CommandInterface, Options, Rule } from '../../../src/types';
+import { CommandInterface, Options } from '../../../src/types';
 import contries from '../countries';
 
- const Search: CommandInterface = {
+const Search: CommandInterface = {
   description :"Search country",
   examples : [
     'country search --name Andorra',
