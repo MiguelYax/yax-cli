@@ -43,7 +43,7 @@ export class Register implements CommandInterface {
 
   handler(ops: Options, args: Arguments) {
     log('[ARGUMENTS]', args);
-    if (this.commands.includes(args.command)) {
+    if (args.command && this.commands.includes(args.command)) {
       const relativePath = `${this.commandsPath}/${args.command}`;
       log('[CMD PATH]', relativePath);
       import(relativePath)
@@ -61,7 +61,7 @@ export class Register implements CommandInterface {
           }
         });
     } else {
-      showHelp(this, args, this.commands);
+      showHelp(this, args, this.commands, [`Command not found: ${args.command}`]);
     }
   }
 }

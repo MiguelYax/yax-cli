@@ -11,7 +11,7 @@ describe('yax-cli', () => {
         type: 'boolean',
         default: false
       }];
-    expect(getFlags(validations)).toEqual(['FLAGS:', '--help, -h                             (optional) Display help']);
+    expect(getFlags(validations)).toEqual(['OPTIONS:', '--help, -h                             (optional) Display help']);
   });
 
   test('pad should return an empty string when n is a negative number', () => {

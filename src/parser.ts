@@ -15,7 +15,7 @@ export const getArgs = (argv: string[]): Arguments => {
   return {
     node,
     path,
-    command,
+    command: !isFlag(command) ? command : undefined,
     argv,
     bin: basename(path)
   };

@@ -15,7 +15,7 @@ export type Arguments = {
   node: string
   bin: string, 
   path: string;
-  command: string,
+  command?: string,
   argv: string[]
 }
 
