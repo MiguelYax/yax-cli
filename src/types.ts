@@ -11,6 +11,7 @@ export type Rule = {
     type: 'boolean' | 'string' | 'number' | 'list'
     default?: All
 }
+
 export type Arguments = {
   node: string
   bin: string, 
@@ -24,7 +25,6 @@ export interface CommandInterface {
   examples: string[],
   handler: (options: Options, args: Arguments)=> void;
   validations: Rule[]
-  commands?: string[]
 }
 
 export type RegisterOptions = {

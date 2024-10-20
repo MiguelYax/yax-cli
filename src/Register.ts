@@ -15,6 +15,7 @@ export class Register implements CommandInterface {
   description: string;
   commandsPath: string;
   process: ProcessType;
+  errors: string[];
   validations: Rule[] = [{
     flag: 'help',
     alias: 'h',
@@ -28,6 +29,7 @@ export class Register implements CommandInterface {
     this.commandsPath = ops.commandsPath;
     this.description = ops.description;
     this.process = ops.process;
+    this.errors = [];
     this.resolve(this, this.process);
   }
 
@@ -39,9 +41,11 @@ export class Register implements CommandInterface {
     const args = getArgs(process.argv);
     const options = parser(args.argv, this.validations);
     this.commands = readdirSync(this.commandsPath);
-    const result = verify(options, context.validations);
-    if (!args.command || options.get('help') || !result.isValid) {
-      Register.print(showHelp(context, args, this.commands, result.errors));
+    const { isValid, errors } = verify(options, context.validations);
+    this.errors = errors;
+
+    if (!args.command || options.get('help') || !isValid) {
+      Register.print(showHelp(context, args, this.commands, this.errors));
     } else {
       context.handler(options, args);
     }
@@ -54,11 +58,12 @@ export class Register implements CommandInterface {
         .then((module) => {
           const Command = module.default;
           const cmd = isClass(Command) ? new Command() : Command;
-
-          this.resolve(cmd, this.process );
+          
+          this.resolve(cmd, this.process);
         });
     } else {
-      Register.print(showHelp(this, args, this.commands, [`Command not found: ${args.command}`]));
+      this.errors = [`Command not found: ${args.command}`];
+      Register.print(showHelp(this, args, this.commands, this.errors));
     }
   }
 }

@@ -1,4 +1,4 @@
-import { CommandInterface, Options, logger } from '../../../src';
+import { CommandInterface, Options } from '../../../src/types';
 
 const centralAmericaCountries = [ "Belice", "Costa Rica", "El Salvador", "Guatemala", "Honduras", "Nicaragua", "Panamá" ];
 
@@ -31,7 +31,7 @@ const Search: CommandInterface = {
     const result = centralAmericaCountries
       .filter((c) => c.includes(name));
 
-    logger.log(result.slice(0, limit));
+    console.log(result.slice(0, limit));
   }
 };
 
