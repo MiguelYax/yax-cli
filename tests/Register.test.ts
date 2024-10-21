@@ -1,4 +1,4 @@
-import { Register, logger } from "../src";
+import { Register } from "../src";
 
 const shell = (command: string) => {
   const cli = new Register({
@@ -8,7 +8,7 @@ const shell = (command: string) => {
       argv: ['node', 'cwd/bin', ...command.split(' ')]
     }
   });
-  logger.debug(cli.process);
+  console.debug(cli.process);
 
   return cli;
 };

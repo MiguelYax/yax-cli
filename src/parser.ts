@@ -2,7 +2,7 @@ import { All, Arguments, Options, Rule } from "./types";
 import { basename } from "path";
 
 const isFlag = (key: string): boolean => {
-  return key.startsWith('-');
+  return key?.startsWith('-');
 };
 
 export const getArgs = (argv: string[]): Arguments => {

@@ -3,7 +3,6 @@ import { parser, getArgs } from "./parser";
 import { Arguments, CommandInterface, Options, Rule, RegisterOptions, ProcessType } from "./types";
 import { showHelp } from "./helpers";
 import { verify } from "./validations";
-import { logger } from "./logger";
 
 const isClass = (v: CommandInterface | object): boolean => {
   return typeof v === 'function' && /^\s*class\s+/.test(v.toString());
@@ -34,7 +33,7 @@ export class Register implements CommandInterface {
   }
 
   static print(content: string[]): void {
-    logger.log(content.join('\n'));
+    console.log(content.join('\n'));
   }
 
   resolve(context: CommandInterface, process: ProcessType) {
