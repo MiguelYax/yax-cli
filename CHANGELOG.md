@@ -1,5 +1,11 @@
 # yax-cli
 
+## 0.2.1
+
+### Patch Changes
+
+- 15ee43c: Fix isFlag null exception and types path
+
 ## 0.2.0
 
 ### Minor Changes
