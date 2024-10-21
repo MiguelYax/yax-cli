@@ -1,5 +1,11 @@
 # yax-cli
 
+## 0.2.2
+
+### Patch Changes
+
+- 97dff08: Fix: wrong types config on package.json
+
 ## 0.2.1
 
 ### Patch Changes
