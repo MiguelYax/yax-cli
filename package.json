@@ -3,10 +3,10 @@
   "version": "0.2.1",
   "description": "Yet another command line tool using Javascript. (By the way my last name is Yax)",
   "main": "dist/index.js",
-  "types": "src/index.d.ts",
+  "types": "types/index.d.ts",
   "files": [
     "/dist",
-    "/src/types.d.ts",
+    "/types",
     "tsconfig.json"
   ],
   "scripts": {

@@ -1,4 +1,4 @@
-export * from './types.d';
+export * from './types';
 export * from './helpers';
 export * from './Register';
 export * from './parser';
