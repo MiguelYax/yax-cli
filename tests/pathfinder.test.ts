@@ -1,41 +1,60 @@
-import { pathfinder, getFiles } from '../src';
+import { Arguments, pathfinder, resolveCommands } from '../src';
 
 describe('get files', () => {
   test('resolve posible cmds', () => {
     const commandsPath = `${__dirname}/cmds`;
-    const files = getFiles(commandsPath, commandsPath)
-    console.log(files);
-    expect(files).toEqual(
+    const commandFiles = resolveCommands(commandsPath, commandsPath)
+
+    expect(commandFiles).toEqual(
       [
         {
-          name: '/home/myax/dev/yax-cli/tests/cmds/find/index.ts',
-          path: 'find',
-          filename: 'index',
-          extension: '.ts',
+          filePath: '/home/myax/dev/yax-cli/tests/cmds/find/index.ts',
           commands: [ 'find' ]
         },
         {
-          name: '/home/myax/dev/yax-cli/tests/cmds/index.ts',
-          path: '',
-          filename: 'index',
-          extension: '.ts',
+          filePath: '/home/myax/dev/yax-cli/tests/cmds/index.ts',
           commands: [ '' ]
         },
         {
-          name: '/home/myax/dev/yax-cli/tests/cmds/search/index.ts',
-          path: 'search',
-          filename: 'index',
-          extension: '.ts',
+          filePath: '/home/myax/dev/yax-cli/tests/cmds/search/index.ts',
           commands: [ 'search' ]
         },
         {
-          name: '/home/myax/dev/yax-cli/tests/cmds/search/location.ts',
-          path: 'search',
-          filename: 'location',
-          extension: '.ts',
+          filePath: '/home/myax/dev/yax-cli/tests/cmds/search/location.ts',
           commands: [ 'search', 'location' ]
         }
       ]
     );
   });
 });
+
+describe('pathfinder', () => {
+  test('should return false', async () => {
+    const     commandsPath = `${__dirname}/cmds`;
+    const args: Arguments =     {
+      node: 'node',
+      path: 'cwd/bin',
+      commands: [ 'generate', 'app' ],
+      argv: [ 'node', 'cwd/bin', 'generate', 'app', '-o', '/usr/home/app' ],
+      flags: [ '-o', '/usr/home/app' ],
+      bin: 'bin'
+    }
+
+   const resolution = await pathfinder(commandsPath, args);
+   expect(resolution.config).toBeUndefined();
+  });
+  test('should resolve command', async() => {
+    const     commandsPath = `${__dirname}/cmds`;
+    const args: Arguments =     {
+      node: 'node',
+      path: 'cwd/bin',
+      commands: [ 'search', 'location' ],
+      argv: [ 'node', 'cwd/bin', 'generate', 'app', '-o', '/usr/home/app' ],
+      flags: [ '-o', '/usr/home/app' ],
+      bin: 'bin'
+    }
+
+   const resolution = await pathfinder(commandsPath, args);
+   expect(resolution.config).toBeDefined();
+  });
+})

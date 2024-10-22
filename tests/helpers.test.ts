@@ -42,7 +42,8 @@ describe('helpers', () => {
       node: 'node',
       path: 'cwd/bin',
       bin: 'bin',
-      command: 'test',
+      commands: ['test'],
+      flags: [],
       argv: []
     };
 
@@ -74,8 +75,9 @@ describe('helpers', () => {
       node: 'node',
       path: 'cwd/bin',
       bin: 'bin',
-      command: 'test',
-      argv: []
+      commands: ['test'] ,
+      argv: [],
+      flags: []
     };
 
     expect(showHelp(cmd, args)).toEqual([

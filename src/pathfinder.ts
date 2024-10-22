@@ -4,60 +4,59 @@ import { Arguments } from "./types";
 
 const supportedExtensions = ['.ts', '.js']
 
-export type Files = {
-  name: string
-  filename: string
-  extension: string,
+export type CommandFile = {
+  filePath: string
   commands: string[],
-  path: string
 }
 
-export const getFiles = (root: string, commandsPath: string, files: Files[] = [] ): Files[] => {
+export type PathfinderResolution = {
+  commandFiles: CommandFile[],
+  config?: CommandFile,
+}
+
+export const resolveCommands = (root: string, commandsPath: string, commandFiles: CommandFile[] = []): CommandFile[] => {
   const fileList = readdirSync(commandsPath)
   for (const file of fileList) {
-    const name = `${commandsPath}/${file}`
-    if (statSync(name).isDirectory()) {
-      getFiles(root, name, files)
+    const filePath = `${commandsPath}/${file}`
+    if (statSync(filePath).isDirectory()) {
+      resolveCommands(root, filePath, commandFiles)
     } else {
-      const extension = extname(name) ;
+      const extension = extname(filePath);
       if (supportedExtensions.includes(extension)) {
 
-        const file = basename(name);
-        const path = name
-        .replace(root, '')
-        .replace(`${file}`, '')
-        .replace(/^\/|\/$/g, '');
+        const file = basename(filePath);
+        const path = filePath
+          .replace(root, '')
+          .replace(`${file}`, '')
+          .replace(/^\/|\/$/g, '');
 
         const commands = path.split('/');
         const filename = file.replace(extension, '');
 
-        if (filename !== 'index' )  {
+        if (filename !== 'index') {
           commands.push(filename)
         }
 
-        files.push({
-          name,
-          path,
-          filename,
-          extension,
+        commandFiles.push({
+          filePath,
           commands
         })
       }
     }
   }
-  return files
+  return commandFiles;
 }
 
-export const pathfinder = (commandsPath: string, args: Arguments): void => {
-  const files = getFiles(commandsPath, commandsPath, []);
-  console.log(files);
-  console.log(args);
-
-  const commands = files.map((f) => {
-    return {
-
-    }
-  })
+export const pathfinder =  (commandsPath: string, args: Arguments): PathfinderResolution => {
+  const commandFiles = resolveCommands(commandsPath, commandsPath, []);
+  const cmd = args.commands.join(' ')
+  const config = commandFiles.find((c) => c.commands.join(' ') === cmd);
+  // const command = (config) ? await import(config.filePath) : undefined;
+  // const module = (command) ? command.default : undefined; 
+  return {
+    commandFiles,
+    config,
+  }
 };
 
 

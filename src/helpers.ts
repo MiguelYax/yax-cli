@@ -21,7 +21,7 @@ export const getFlags = (validations: Rule[]): string[] => {
 };
 
 export const showHelp = (cmd: CommandInterface, args: Arguments, commands: string[] = [], errors: string[] = []): string[] => {
-  const commandInfo = args.command ? [`COMMAND: ${args.command}`] : [];
+  const commandInfo = args.commands ? [`COMMAND: ${args.commands.join(' ')}`] : [];
   const content = [
     `USAGE: ${args.bin} <COMMAND> [OPTIONS]`,
     ...commandInfo,
