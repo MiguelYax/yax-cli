@@ -1,7 +1,7 @@
 import { Arguments, CommandInterface, Rule } from "./types";
 
 export const toList = (title: string, items: string[]): string[] => {
-  return items.length ? [`${title}:`, ...items.map((i) => `  - ${i}`)] : [];
+  return items.length ? [`${title}:`, ...items.map((i) => `  * ${i}`)] : [];
 };
 
 export const pad = (n: number): string => {
@@ -21,7 +21,7 @@ export const getFlags = (validations: Rule[]): string[] => {
 };
 
 export const showHelp = (cmd: CommandInterface, args: Arguments, commands: string[] = [], errors: string[] = []): string[] => {
-  const commandInfo = args.commands ? [`COMMAND: ${args.commands.join(' ')}`] : [];
+  const commandInfo = args.commands.length ? [`COMMAND: ${args.commands.join(' ')}`] : [];
   const content = [
     `USAGE: ${args.bin} <COMMAND> [OPTIONS]`,
     ...commandInfo,

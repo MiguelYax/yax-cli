@@ -27,7 +27,7 @@ export const resolveCommands = (root: string, commandsPath: string, commandFiles
         const file = basename(filePath);
         const path = filePath
           .replace(root, '')
-          .replace(`${file}`, '')
+          .replace(file, '')
           .replace(/^\/|\/$/g, '');
 
         const commands = path.split('/');

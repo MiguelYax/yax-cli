@@ -53,7 +53,30 @@ describe('helpers', () => {
         "COMMAND: test", 
         "DESCRIPTION: cli"]
     );
+  });
 
+  test('show help', () => {
+    const cmd: CommandInterface = {
+      description: 'cli',
+      examples: [],
+      handler: () => { },
+      validations: []
+    };
+
+    const args: Arguments = {
+      node: 'node',
+      path: 'cwd/bin',
+      bin: 'bin',
+      commands: [],
+      flags: [],
+      argv: []
+    };
+
+    expect( showHelp(cmd, args)).toEqual(
+      [
+        "USAGE: bin <COMMAND> [OPTIONS]", 
+        "DESCRIPTION: cli"]
+    );
   });
 
   test('show help', () => {
@@ -85,7 +108,7 @@ describe('helpers', () => {
       "COMMAND: test", 
       "DESCRIPTION: ", 
       "EXAMPLES:", 
-      "  - cli move --file readme.md", 
+      "  * cli move --file readme.md", 
       "OPTIONS:", "--file, -f                             (required) File path"]);
   });
 });
