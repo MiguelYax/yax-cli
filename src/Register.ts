@@ -17,7 +17,7 @@ export class Register implements CommandInterface {
   process: ProcessType;
   errors: string[];
   args: Arguments;
-  resolution: PathfinderResolution;
+  // resolution: PathfinderResolution;
   validations: Rule[] = [{
     flag: 'help',
     alias: 'h',
@@ -33,7 +33,7 @@ export class Register implements CommandInterface {
     this.process = ops.process;
     this.errors = [];
     this.args = getArgs(this.process.argv);
-    this.resolution =  pathfinder(this.commandsPath, this.args);
+    // this.resolution =  pathfinder(this.commandsPath, this.args);
     this.resolve(this, this.process);
   }
 
@@ -55,8 +55,9 @@ export class Register implements CommandInterface {
   }
 
   async handler(ops: Options, args: Arguments) {
-    if (this.resolution.config) {
-      const module = await import(this.resolution.config.filePath);
+    const resolution  = pathfinder(this.commandsPath, this.args);
+    if (resolution.config) {
+      const module = await import(resolution.config.filePath);
 
       const Command = module.default;
       const cmd = isClass(Command) ? new Command() : Command;
