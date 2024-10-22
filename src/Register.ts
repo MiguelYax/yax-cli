@@ -61,7 +61,7 @@ export class Register implements CommandInterface {
       const Command = module.default;
       const cmd = isClass(Command) ? new Command() : Command;
 
-      this.resolve(cmd, this.process);
+      this.resolve(cmd);
     } else {
       this.errors = [`Command not found: ${this.args.commands.join(' ')}`];
       Register.print(showHelp(this, args, this.commands, this.errors));
