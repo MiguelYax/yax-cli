@@ -7,6 +7,7 @@
   "files": [
     "/dist",
     "/types",
+    "/docs",
     "tsconfig.json"
   ],
   "scripts": {
@@ -19,10 +20,24 @@
     "version-packages": "changeset version && npm i --package-lock-only",
     "release": "npm run build && changeset publish"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MiguelYax/yax-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/M`iguelYax/yax-cli/issues"
+  },
+  "homepage": "https://github.com/MiguelYax/yax-cli#readme",
   "keywords": [
     "javascript",
     "typescript",
-    "cli"
+    "cli",
+    "command",
+    "argument",
+    "args",
+    "option", 
+    "parsing",
+    "parser"
   ],
   "author": "Miguel Yax <mig_dj@hotmail.com>",
   "license": "MIT",
