@@ -17,7 +17,6 @@ export class Register implements CommandInterface {
   process: ProcessType;
   errors: string[];
   args: Arguments;
-  // resolution: PathfinderResolution;
   validations: Rule[] = [{
     flag: 'help',
     alias: 'h',

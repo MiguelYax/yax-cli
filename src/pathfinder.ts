@@ -51,8 +51,7 @@ export const pathfinder =  (commandsPath: string, args: Arguments): PathfinderRe
   const commandFiles = resolveCommands(commandsPath, commandsPath, []);
   const cmd = args.commands.join(' ');
   const config = commandFiles.find((c) => c.commands.join(' ') === cmd);
-  // const command = (config) ? await import(config.filePath) : undefined;
-  // const module = (command) ? command.default : undefined; 
+
   return {
     commandFiles,
     config
