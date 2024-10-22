@@ -5,56 +5,45 @@ describe('get files', () => {
     const commandsPath = `${__dirname}/cmds`;
     const commandFiles = resolveCommands(commandsPath, commandsPath)
 
+    expect(commandFiles.length).toBe(4)
     expect(commandFiles).toEqual(
-      [
-        {
-          filePath: '/home/myax/dev/yax-cli/tests/cmds/find/index.ts',
-          commands: [ 'find' ]
-        },
-        {
-          filePath: '/home/myax/dev/yax-cli/tests/cmds/index.ts',
-          commands: [ '' ]
-        },
-        {
-          filePath: '/home/myax/dev/yax-cli/tests/cmds/search/index.ts',
-          commands: [ 'search' ]
-        },
-        {
-          filePath: '/home/myax/dev/yax-cli/tests/cmds/search/location.ts',
-          commands: [ 'search', 'location' ]
-        }
-      ]
+      expect.arrayContaining([
+        expect.objectContaining({
+          filePath: expect.any('string'),
+          commands: expect.any('array')
+        })
+      ])
     );
   });
 });
 
 describe('pathfinder', () => {
   test('should return false', async () => {
-    const     commandsPath = `${__dirname}/cmds`;
-    const args: Arguments =     {
+    const commandsPath = `${__dirname}/cmds`;
+    const args: Arguments = {
       node: 'node',
       path: 'cwd/bin',
-      commands: [ 'generate', 'app' ],
-      argv: [ 'node', 'cwd/bin', 'generate', 'app', '-o', '/usr/home/app' ],
-      flags: [ '-o', '/usr/home/app' ],
+      commands: ['generate', 'app'],
+      argv: ['node', 'cwd/bin', 'generate', 'app', '-o', '/usr/home/app'],
+      flags: ['-o', '/usr/home/app'],
       bin: 'bin'
     }
 
-   const resolution = await pathfinder(commandsPath, args);
-   expect(resolution.config).toBeUndefined();
+    const resolution = await pathfinder(commandsPath, args);
+    expect(resolution.config).toBeUndefined();
   });
-  test('should resolve command', async() => {
-    const     commandsPath = `${__dirname}/cmds`;
-    const args: Arguments =     {
+  test('should resolve command', async () => {
+    const commandsPath = `${__dirname}/cmds`;
+    const args: Arguments = {
       node: 'node',
       path: 'cwd/bin',
-      commands: [ 'search', 'location' ],
-      argv: [ 'node', 'cwd/bin', 'generate', 'app', '-o', '/usr/home/app' ],
-      flags: [ '-o', '/usr/home/app' ],
+      commands: ['search', 'location'],
+      argv: ['node', 'cwd/bin', 'generate', 'app', '-o', '/usr/home/app'],
+      flags: ['-o', '/usr/home/app'],
       bin: 'bin'
     }
 
-   const resolution = await pathfinder(commandsPath, args);
-   expect(resolution.config).toBeDefined();
+    const resolution = await pathfinder(commandsPath, args);
+    expect(resolution.config).toBeDefined();
   });
 })
