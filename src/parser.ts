@@ -11,7 +11,7 @@ export const getArgs = (argv: string[]): Arguments => {
     path,
     ...tokens
   ] = argv;
-  const commands = []
+  const commands = [];
   let flags:string[] = [];
 
   for (let i = 0; i < tokens.length; i++) {

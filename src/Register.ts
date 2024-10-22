@@ -3,7 +3,7 @@ import { parser, getArgs } from "./parser";
 import { Arguments, CommandInterface, Options, Rule, RegisterOptions, ProcessType } from "./types";
 import { showHelp } from "./helpers";
 import { verify } from "./validations";
-import { pathfinder, PathfinderResolution } from "./pathfinder";
+import { pathfinder } from "./pathfinder";
 
 const isClass = (v: CommandInterface | object): boolean => {
   return typeof v === 'function' && /^\s*class\s+/.test(v.toString());
@@ -33,15 +33,14 @@ export class Register implements CommandInterface {
     this.process = ops.process;
     this.errors = [];
     this.args = getArgs(this.process.argv);
-    // this.resolution =  pathfinder(this.commandsPath, this.args);
-    this.resolve(this, this.process);
+    this.resolve(this);
   }
 
   static print(content: string[]): void {
     console.log(content.join('\n'));
   }
 
-  resolve(context: CommandInterface, process: ProcessType) {
+  resolve(context: CommandInterface) {
     const options = parser(this.args.flags, this.validations);
     this.commands = readdirSync(this.commandsPath);
     const { isValid, errors } = verify(options, context.validations);

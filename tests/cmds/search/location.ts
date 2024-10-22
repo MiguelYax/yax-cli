@@ -1,11 +1,11 @@
-import { CommandInterface  } from '../../../src'
+import { CommandInterface  } from '../../../src';
 
 const Search: CommandInterface = {
   description :"Command description",
   examples : [],
   validations:[],
   handler() {
-    console.log('Hello from location!')
+    console.log('Hello from location!');
   }
 };
 

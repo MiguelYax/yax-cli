@@ -1,11 +1,11 @@
-import { CommandInterface, Options } from '../../src/types';
+import { CommandInterface } from '../../src/types';
 
 const Search: CommandInterface = {
   description :"Command description",
   examples : [],
   validations:[],
   handler() {
-    console.log('Hello universe!')
+    console.log('Hello universe!');
   }
 };
 

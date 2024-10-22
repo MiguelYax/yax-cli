@@ -33,7 +33,7 @@ describe('args resolution', () => {
   
     expect(args.commands).toEqual(['generate', 'app']);
     expect(args.flags).toEqual(['-o', '/usr/home/app']);
-  })
+  });
 
   test('args without commands', () => {
     const argv = ['node', 'cwd/bin'];
@@ -41,7 +41,7 @@ describe('args resolution', () => {
   
     expect(args.commands).toEqual([]);
     expect(args.flags).toEqual([]);
-  })
+  });
 
   test('args without commands but with flags', () => {
     const argv = ['node', 'cwd/bin', '-o', '/usr/home/app'];
@@ -49,5 +49,5 @@ describe('args resolution', () => {
   
     expect(args.commands).toEqual([]);
     expect(args.flags).toEqual(['-o', '/usr/home/app']);
-  })
-})
+  });
+});
