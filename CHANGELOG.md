@@ -1,5 +1,11 @@
 # yax-cli
 
+## 0.3.1
+
+### Patch Changes
+
+- f8f2791: Add docs, bugs, keyworkds, and homepage to package.json
+
 ## 0.3.0
 
 ### Minor Changes
