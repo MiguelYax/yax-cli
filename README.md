@@ -1,12 +1,16 @@
 # yax-cli
-Yet another command line tool using Javascript. (By the way my last name is Yax)
+Yet another command line tool helper, multi-level, and generator using Javascript/Typescript. (By the way my last name is Yax)
 
 # Install 
 ```
 npm install yax-cli
 ```
 
-# With Typrescript
+# Documentation
+  - [Option validations](/docs/VALIDATIONS.md)
+  - [Multi-level commands](/docs/MULTI-LEVEL.md)
+
+# Getting started
 
 ## Main structure
 
@@ -14,78 +18,66 @@ As a example, It uses `src` as source path.
 ```sh
 repository
 ├── src
-│   ├── cmds ## relative path 
-│   │   ├──find 
-│   │   │  └── index.ts ## export an object that implements CommandInterface
-│   ├── index.ts  ##  Command line Register file
+│   ├── phone ## relative path 
+│   │   ├──on 
+│   │   │  └── index.ts ## implements CommandInterface
+│   ├── index.ts  ##  Command line Register file
 ```
 
 ## files
 
-### Command line registration
+### Command line register definition file
 
 ```ts
 #!/usr/bin/env node // Don't forget add this at the first line
-// repository/src/index.ts
+
+import { Register } from 'yax-cli'
+
 new Register({
-  description: 'Country Command Line Tool', // Your description
-  commandsPath: `${__dirname}/cmds`, //  Add here your full path to the directory
+  description: 'Phone demo cli', // Your cli description
+  commandsPath: `${__dirname}/phone`, //  Add here your full path to the directory
   process,  // Procees runtime variable
 });
 ```
 
-### Find command definition
+### phone on command definition
 ```ts
-import { CommandInterface, Options, Rule, logger } from "yax-cli";
-
-const centralAmericaCountries = [ "Belice", "Costa Rica", "El Salvador", "Guatemala", "Honduras", "Nicaragua", "Panamá" ];
+import { CommandInterface } from "yax-cli";
 
 export default class Cmd implements CommandInterface {
-  description = 'Find country by name';
-  examples = [
-    'country find --name Guatemala',
-    'country find -n Belice'
-  ];
-  validations: Rule[] = [
-    {
-      flag: 'name',
-      alias: 'n',
-      description: "Country name",
-      required: true,
-      type: 'string'
-    }
-  ];
-  handler(options: Options) { 
-    // You can do here wethever you want
-    const name = options.get('name');
-    const result = centralAmericaCountries.find((c) => c === name) ?? [];
-    logger.log(result);
+  description = 'Phone turn on';
+  examples = [];
+  validations = [];
+  handler() {
+    console.log('Hello moto!');
+    console.log('Phone turned on :D');
   }
 };
 ```
 
-### Build and Link/Publish your CLI
-#### command
+### Executing
 ```sh
-country --help
-```
-#### output
-```sh
-USAGE: bin <COMMAND> [OPTIONS]
-DESCRIPTION: Country Command Line Tool
-COMMANDS:
-  - find
-  - search
-OPTIONS:
---help, -h                             (optional) Display help
-```
-```sh
-countries find --name Guatemala
+phone on
 ```
 
-#### Output
+### Output
 ```sh
-Guatemala
+Hello moto!
+Phone turned on :D
+```
+
+### Show help
+```sh
+phone --help
+```
+### output
+```sh
+USAGE: phone <COMMAND> [OPTIONS]
+DESCRIPTION: Phone demo cli
+COMMANDS:
+  * on
+OPTIONS:
+--help, -h                             (optional) Display help
 ```
 
 ## That's it, I hope this tool can help you :)
