@@ -1,5 +1,11 @@
 # yax-cli
 
+## 0.3.0
+
+### Minor Changes
+
+- 47c0583: Add support for command multi-level
+
 ## 0.2.2
 
 ### Patch Changes
