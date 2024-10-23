@@ -10,7 +10,7 @@
     "tsconfig.json"
   ],
   "scripts": {
-    "test": "jest --config=../../jest.config.mjs",
+    "test": "jest",
     "devtsconfig.json": "tsc --watch --sourceMap",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern types",
     "lint:fix": "eslint . --fix --ignore-pattern dist --ignore-pattern types",
