@@ -3,7 +3,7 @@ import { Arguments, pathfinder, resolveCommands } from '../src';
 describe('get files', () => {
   test('resolve posible cmds', () => {
     const commandsPath = `${__dirname}/cmds`;
-    const commandFiles = resolveCommands(commandsPath, commandsPath);
+    const commandFiles = resolveCommands(commandsPath, commandsPath, []);
 
     expect(commandFiles.length).toBe(4);
     expect(commandFiles).toEqual(
@@ -30,7 +30,7 @@ describe('pathfinder', () => {
     };
 
     const resolution = await pathfinder(commandsPath, args);
-    expect(resolution.config).toBeUndefined();
+    expect(resolution.command).toBeUndefined();
   });
   test('should resolve command', async () => {
     const commandsPath = `${__dirname}/cmds`;
@@ -44,6 +44,6 @@ describe('pathfinder', () => {
     };
 
     const resolution = await pathfinder(commandsPath, args);
-    expect(resolution.config).toBeDefined();
+    expect(resolution.command).toBeDefined();
   });
 });

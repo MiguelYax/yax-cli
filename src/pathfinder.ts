@@ -1,20 +1,10 @@
 import { readdirSync, statSync } from "node:fs";
 import { basename, extname } from "node:path";
-import { Arguments } from "./types";
+import { Arguments, CommandRoute } from "./types";
 
 const supportedExtensions = ['.ts', '.js'];
 
-export type CommandFile = {
-  filePath: string
-  commands: string[],
-}
-
-export type PathfinderResolution = {
-  commandFiles: CommandFile[],
-  config?: CommandFile,
-}
-
-export const resolveCommands = (root: string, commandsPath: string, commandFiles: CommandFile[] = []): CommandFile[] => {
+export const resolveCommands = (root: string, commandsPath: string, commandFiles: CommandRoute[]): CommandRoute[] => {
   const fileList = readdirSync(commandsPath);
   for (const file of fileList) {
     const filePath = `${commandsPath}/${file}`;
@@ -47,14 +37,14 @@ export const resolveCommands = (root: string, commandsPath: string, commandFiles
   return commandFiles;
 };
 
-export const pathfinder =  (commandsPath: string, args: Arguments): PathfinderResolution => {
-  const commandFiles = resolveCommands(commandsPath, commandsPath, []);
+export const pathfinder =  (commandsPath: string, args: Arguments): { commands: CommandRoute[], command?: CommandRoute  } => {
+  const commands = resolveCommands(commandsPath, commandsPath, []);
   const cmd = args.commands.join(' ');
-  const config = commandFiles.find((c) => c.commands.join(' ') === cmd);
+  const command = commands.find((c) => c.commands.join(' ') === cmd);
 
   return {
-    commandFiles,
-    config
+    commands,
+    command
   };
 };
 

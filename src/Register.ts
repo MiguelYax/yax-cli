@@ -1,6 +1,5 @@
-import { readdirSync } from "node:fs";
 import { parser, getArgs } from "./parser";
-import { Arguments, CommandInterface, Options, Rule, RegisterOptions, ProcessType } from "./types";
+import { Arguments, CommandInterface, Options, Rule, RegisterOptions, ProcessType, CommandRoute } from "./types";
 import { showHelp } from "./helpers";
 import { verify } from "./validations";
 import { pathfinder } from "./pathfinder";
@@ -11,7 +10,8 @@ const isClass = (v: CommandInterface | object): boolean => {
 
 export class Register implements CommandInterface {
   examples = [];
-  commands: string[] = [];
+  commands: CommandRoute[] = [];
+  command?: CommandRoute;
   description: string;
   commandsPath: string;
   process: ProcessType;
@@ -32,6 +32,11 @@ export class Register implements CommandInterface {
     this.process = ops.process;
     this.errors = [];
     this.args = getArgs(this.process.argv);
+    const { command, commands } = pathfinder(ops.commandsPath, this.args);
+
+    this.commands = commands;
+    this.command = command;
+    
     this.resolve(this);
   }
 
@@ -41,7 +46,6 @@ export class Register implements CommandInterface {
 
   resolve(context: CommandInterface) {
     const options = parser(this.args.flags, this.validations);
-    this.commands = readdirSync(this.commandsPath);
     const { isValid, errors } = verify(options, context.validations);
     this.errors = errors;
 
@@ -53,9 +57,8 @@ export class Register implements CommandInterface {
   }
 
   async handler(ops: Options, args: Arguments) {
-    const resolution  = pathfinder(this.commandsPath, this.args);
-    if (resolution.config) {
-      const module = await import(resolution.config.filePath);
+    if (this.command) {
+      const module = await import(this.command.filePath);
 
       const Command = module.default;
       const cmd = isClass(Command) ? new Command() : Command;

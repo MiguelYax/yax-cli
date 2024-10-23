@@ -1,20 +1,25 @@
 export type All = boolean | string | number | number[] | string[]
 
-export type Options =  Map<string, All>;
+export type Options = Map<string, All>;
+
+export type CommandRoute = {
+  filePath: string;
+  commands: string[];
+}
 
 export type Rule = {
-    flag: string,
-    alias: string,
-    description: string,
-    required: boolean,
-    list?: boolean,
-    type: 'boolean' | 'string' | 'number' | 'list'
-    default?: All
+  flag: string,
+  alias: string,
+  description: string,
+  required: boolean,
+  list?: boolean,
+  type: 'boolean' | 'string' | 'number' | 'list'
+  default?: All
 }
 
 export type Arguments = {
   node: string
-  bin: string, 
+  bin: string,
   path: string;
   commands: string[],
   flags: string[],
@@ -24,8 +29,8 @@ export type Arguments = {
 export interface CommandInterface {
   description: string,
   examples: string[],
-  handler: (options: Options, args: Arguments)=> void;
   validations: Rule[]
+  handler: (options: Options, args: Arguments) => void;
 }
 
 export type RegisterOptions = {

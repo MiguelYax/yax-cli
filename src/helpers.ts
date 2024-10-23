@@ -1,4 +1,4 @@
-import { Arguments, CommandInterface, Rule } from "./types";
+import { Arguments, CommandInterface, CommandRoute, Rule } from "./types";
 
 export const toList = (title: string, items: string[]): string[] => {
   return items.length ? [`${title}:`, ...items.map((i) => `  * ${i}`)] : [];
@@ -20,13 +20,21 @@ export const getFlags = (validations: Rule[]): string[] => {
   return validations.length > 0 ? ['OPTIONS:', ...flags] : [];
 };
 
-export const showHelp = (cmd: CommandInterface, args: Arguments, commands: string[] = [], errors: string[] = []): string[] => {
+export const getCommands = (commands: CommandRoute[]): string[] => {
+  const cmds = commands
+    .filter((i) => i.commands[0] !== '')
+    .map((c) => `  *  ${c.commands.join(' ')}`);
+
+  return commands.length > 0 ? ["COMMANDS:", ...cmds]: [];
+};
+
+export const showHelp = (cmd: CommandInterface, args: Arguments, commands: CommandRoute[] = [], errors: string[] = []): string[] => {
   const commandInfo = args.commands.length ? [`COMMAND: ${args.commands.join(' ')}`] : [];
   const content = [
     `USAGE: ${args.bin} <COMMAND> [OPTIONS]`,
     ...commandInfo,
     `DESCRIPTION: ${cmd.description}`,
-    ...toList('COMMANDS', commands),
+    ...getCommands(commands),
     ...toList('EXAMPLES', cmd.examples),
     ...toList('ERRORS', errors),
     ...getFlags(cmd.validations)
