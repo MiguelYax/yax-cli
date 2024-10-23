@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "yax-cli-monorepo",
-  "version": "0.3.2",
+  "version": "1.0.0",
   "description": "Yet another command line tool helper, multi-level, and generator using Javascript/Typescript. (By the way my last name is Yax)",
   "main": "dist/index.js",
   "types": "types/index.d.ts",
