@@ -24,9 +24,9 @@
     "url": "git+https://github.com/MiguelYax/yax-cli.git"
   },
   "bugs": {
-    "url": "https://github.com/M`iguelYax/yax-cli/issues"
+    "url": "https://github.com/MiguelYax/yax-cli/issues"
   },
-  "homepage": "https://github.com/MiguelYax/yax-cli#readme",
+  "homepage": "https://github.com/MiguelYax/yax-cli/blob/main/packages/yax-cli/README.md",
   "keywords": [
     "javascript",
     "typescript",

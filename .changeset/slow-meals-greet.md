@@ -1,5 +1,5 @@
 ---
-"yax-cli": minor
+"yax-cli": patch
 ---
 
 Migrate to monorepo structure
