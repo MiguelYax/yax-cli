@@ -1,5 +1,11 @@
 # yax-cli
 
+## 0.3.2
+
+### Patch Changes
+
+- cf25a58: Fix: show the correct parameters at help
+
 ## 0.3.1
 
 ### Patch Changes
