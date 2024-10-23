@@ -7,8 +7,7 @@ npm install yax-cli
 ```
 
 # Documentation
-  - [Option validations](/docs/VALIDATIONS.md)
-  - [Multi-level commands](/docs/MULTI-LEVEL.md)
+
 
 # Getting started
 
