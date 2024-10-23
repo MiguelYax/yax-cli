@@ -7,7 +7,8 @@ npm install yax-cli
 ```
 
 # Documentation
-
+- [Option validation](./docs//VALIDATIONS.md)
+- [Multi-level](./docs/MULTI-LEVEL.md)
 
 # Getting started
 
@@ -81,3 +82,5 @@ OPTIONS:
 
 ## That's it, I hope this tool can help you :)
 
+https://github.com/MiguelYax/yax-cli/blob/feature/monorepo/packages/yax-cli/README.md
+https://github.com/MiguelYax/yax-cli/blob/main/docs/MULTI-LEVEL.md
