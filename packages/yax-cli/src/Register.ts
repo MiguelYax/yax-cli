@@ -17,6 +17,7 @@ export class Register implements CommandInterface {
   process: ProcessType;
   errors: string[];
   args: Arguments;
+  strictMode: boolean;
   validations: Rule[] = [{
     flag: 'help',
     alias: 'h',
@@ -32,7 +33,9 @@ export class Register implements CommandInterface {
     this.process = ops.process;
     this.errors = [];
     this.args = getArgs(this.process.argv);
-    const { command, commands } = pathfinder(ops.commandsPath, this.args);
+    this.strictMode = ops.strictMode ?? true;
+
+    const { command, commands } = pathfinder(ops.commandsPath, this.args, this.strictMode);
 
     this.commands = commands;
     this.command = command;

@@ -37,6 +37,7 @@ export type RegisterOptions = {
   commandsPath: string;
   description: string;
   process: ProcessType
+  strictMode?: boolean;
 }
 
 export type ProcessType = {

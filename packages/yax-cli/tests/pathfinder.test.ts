@@ -29,21 +29,42 @@ describe('pathfinder', () => {
       bin: 'bin'
     };
 
-    const resolution = await pathfinder(commandsPath, args);
+    const resolution = await pathfinder(commandsPath, args, true);
     expect(resolution.command).toBeUndefined();
   });
-  test('should resolve command', async () => {
-    const commandsPath = `${__dirname}/cmds`;
-    const args: Arguments = {
-      node: 'node',
-      path: 'cwd/bin',
-      commands: ['search', 'location'],
-      argv: ['node', 'cwd/bin', 'generate', 'app', '-o', '/usr/home/app'],
-      flags: ['-o', '/usr/home/app'],
-      bin: 'bin'
-    };
 
-    const resolution = await pathfinder(commandsPath, args);
-    expect(resolution.command).toBeDefined();
+  describe('Strict mode', ()=> {
+    test('strict mode is equals to true only index.[js|ts] are considered as commands', async () => {
+      const commandsPath = `${__dirname}/cmds`;
+      const args: Arguments = {
+        node: 'node',
+        path: 'cwd/bin',
+        commands: ['search', 'location'],
+        argv: ['node', 'cwd/bin', 'generate', 'app', '-o', '/usr/home/app'],
+        flags: ['-o', '/usr/home/app'],
+        bin: 'bin'
+      };
+  
+      const resolution = await pathfinder(commandsPath, args, true);
+      expect(resolution.commands.length).toBe(3);
+      expect(resolution.command).toBeUndefined();
+    });
+
+    test('strict mode is equals to false it asumes all *.[js|ts] are considered commands', async () => {
+      const commandsPath = `${__dirname}/cmds`;
+      const args: Arguments = {
+        node: 'node',
+        path: 'cwd/bin',
+        commands: ['search', 'location'],
+        argv: ['node', 'cwd/bin', 'generate', 'app', '-o', '/usr/home/app'],
+        flags: ['-o', '/usr/home/app'],
+        bin: 'bin'
+      };
+  
+      const resolution = await pathfinder(commandsPath, args, false);
+      expect(resolution.commands.length).toBe(4);
+      expect(resolution.command).toBeDefined();
+    });
+
   });
 });

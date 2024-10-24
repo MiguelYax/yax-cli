@@ -29,12 +29,12 @@ repository
 ### Command line register definition file
 
 ```ts
-#!/usr/bin/env node // Don't forget add this at the first line
+#!/usr/bin/env node
 
 import { Register } from 'yax-cli'
 
 new Register({
-  description: 'Phone demo cli', // Your cli description
+  description: 'Phone demo cli',
   commandsPath: `${__dirname}/phone`, //  Add here your full path to the directory
   process,  // Procees runtime variable
 });

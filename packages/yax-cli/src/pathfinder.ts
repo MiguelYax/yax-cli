@@ -37,8 +37,10 @@ export const resolveCommands = (root: string, commandsPath: string, commandFiles
   return commandFiles;
 };
 
-export const pathfinder =  (commandsPath: string, args: Arguments): { commands: CommandRoute[], command?: CommandRoute  } => {
-  const commands = resolveCommands(commandsPath, commandsPath, []);
+export const pathfinder =  (commandsPath: string, args: Arguments, strictMode: boolean): { commands: CommandRoute[], command?: CommandRoute  } => {
+  const paths = resolveCommands(commandsPath, commandsPath, []);
+
+  const commands = strictMode ? paths.filter((p) => p.filePath.includes('index')) : paths;
   const cmd = args.commands.join(' ');
   const command = commands.find((c) => c.commands.join(' ') === cmd);
 
