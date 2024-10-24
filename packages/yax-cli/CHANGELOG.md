@@ -1,5 +1,11 @@
 # yax-cli
 
+## 0.3.3
+
+### Patch Changes
+
+- 1035145: Migrate to monorepo structure
+
 ## 0.3.2
 
 ### Patch Changes
