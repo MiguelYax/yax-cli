@@ -1,5 +1,11 @@
 # yax-cli
 
+## 0.4.0
+
+### Minor Changes
+
+- 8530b16: Add support for strict mode option to set the command resolution mode
+
 ## 0.3.3
 
 ### Patch Changes
