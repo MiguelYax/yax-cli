@@ -1,5 +1,11 @@
 # yax-cli
 
+## 0.4.2
+
+### Patch Changes
+
+- a72f2d8: Update validations docs file
+
 ## 0.4.1
 
 ### Patch Changes
