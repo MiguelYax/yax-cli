@@ -1,29 +1,43 @@
+# VALIDATIONS
+For each command can receive any options. As part of the validation process you could define a rule to ensure that option matches specifications. A command definition could specify a list of rules as validations. 
 
-## Main structure
+# Rule 
+| Property       | Description                                                                                         |
+|----------------|-----------------------------------------------------------------------------------------------------|
+| flag           | Option flag is full name.   e.g. `file` and it should be represented as `--file`                    |
+| alias          | Option alias is a short name.  e.g. `f` It should be represented as `-f`                            |
+| description    | Option description is a text to describe the flag. e.g. `File name`                                 |
+| required       | (boolean) It defines if the option value is required.                                               |
+| type           | Option value type. Values: `string, number, boolean, or list`.  List supports a collection of strings. |
+| default        | Option default value.  It define a default value for the option.                                    |
 
-As a example, It uses `src` as source path.
-```sh
-repository
-├── src
-│   ├── cmds ## relative path 
-│   │   ├──find 
-│   │   │  └── index.ts ## export an object that implements CommandInterface
-│   ├── index.ts  ##  Command line Register file
-```
-
-## files
-
-### Command line registration
-
-```ts
-#!/usr/bin/env node 
-import { Register } from 'yax-cli';
-
-new Register({
-  description: 'Country Command Line Tool', // Your description
-  commandsPath: `${__dirname}/cmds`, //  Add here your full path to the directory
-  process,  // Procees runtime variable
-});
+## Rule example
+```js
+  validations: Rule[] = [
+    {
+      flag: 'file',
+      alias: 'f',
+      description: "File name",
+      required: true,
+      type: 'string'
+    },
+    {
+      flag: 'visible',
+      alias: 'v',
+      description: "Visible status",
+      required: false,
+      type: 'boolean', 
+      default: true
+    },
+    {
+      flag: 'limit',
+      alias: 'l',
+      description: 'Limit of files',
+      required: false,
+      type: 'number'
+      default: 10
+    }
+  ];
 ```
 
 ### Find command definition
@@ -31,52 +45,23 @@ new Register({
 ```ts
 import { CommandInterface, Options, Rule, logger } from "yax-cli";
 
-const centralAmericaCountries = [ "Belice", "Costa Rica", "El Salvador", "Guatemala", "Honduras", "Nicaragua", "Panamá" ];
-
 export default class Cmd implements CommandInterface {
   description = 'Find country by name';
   examples = [
-    'country find --name Guatemala',
-    'country find -n Belice'
+    'find --code GT',
+    'find -c US'
   ];
   validations: Rule[] = [
     {
-      flag: 'name',
-      alias: 'n',
-      description: "Country name",
+      flag: 'code',
+      alias: 'c',
+      description: "Country code",
       required: true,
       type: 'string'
     }
   ];
   handler(options: Options) { 
     // You can do here wethever you want
-    const name = options.get('name');
-    const result = centralAmericaCountries.find((c) => c === name) ?? [];
-    logger.log(result);
   }
 };
-```
-
-### Build and Link/Publish your CLI
-#### command
-```sh
-country --help
-```
-#### output
-```sh
-USAGE: bin <COMMAND> [OPTIONS]
-DESCRIPTION: Country Command Line Tool
-COMMANDS:
-  - find
-  - search
-OPTIONS:
---help, -h                             (optional) Display help
-```
-```sh
-countries find --name Guatemala
-```
-
-#### Output
-```sh
-Guatemala
 ```
