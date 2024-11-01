@@ -3,10 +3,19 @@ runs:
   using: 'composite'
   steps:
     - name: Setup Node.js 20.x
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: 20.x
 
     - name: Install Dependencies
       run: npm ci
       shell: bash
+
+    - name: Unit tests
+      run: npm test
+
+    - name: Code style
+      run: npm run lint
+
+    - name: Build
+      run: npm run build

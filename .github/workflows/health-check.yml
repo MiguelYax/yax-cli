@@ -14,14 +14,5 @@ jobs:
     name: Health check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/ci-setup
-      
-      - name: Unit tests
-        run: npm test
-
-      - name: Code style
-        run: npm run lint
-
-      - name: Build
-        run: npm run build
