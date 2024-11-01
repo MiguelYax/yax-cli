@@ -13,9 +13,12 @@ runs:
 
     - name: Unit tests
       run: npm test
+      shell: bash
 
     - name: Code style
       run: npm run lint
+      shell: bash
 
     - name: Build
       run: npm run build
+      shell: bash
