@@ -1,5 +1,11 @@
 # yax-cli
 
+## 0.4.1
+
+### Patch Changes
+
+- aa78c79: Update action version to use node@20
+
 ## 0.4.0
 
 ### Minor Changes
