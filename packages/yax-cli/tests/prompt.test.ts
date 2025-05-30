@@ -51,7 +51,7 @@ describe('PromptReader', () => {
       name: 'test',
       question: 'Enter:',
       type: 'input',
-      validate: (input) => input === 'good',
+      validate: (input) => input === 'good'
     };
     await expect(reader.input(config)).resolves.toBe('good');
   });
@@ -79,12 +79,12 @@ describe('PromptReader', () => {
     await expect(reader.select(config)).resolves.toBe('b');
   });
 
-    it('select: should return an empty', async () => {
+  it('select: should return an empty', async () => {
     questionMock.mockImplementation((q: string, cb: (v: string) => string) => cb('2'));
     const config: PromptType = {
       name: 'select',
       question: 'Pick one',
-      type: 'select',
+      type: 'select'
     };
     await expect(reader.select(config)).resolves.toBe('');
   });
@@ -125,7 +125,7 @@ describe('PromptReader', () => {
     expect(answers).toEqual({
       name: 'Miguel',
       continue: true,
-      color: 'green',
+      color: 'green'
     });
   });
 });

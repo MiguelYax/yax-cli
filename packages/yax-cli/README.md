@@ -9,6 +9,7 @@ npm install yax-cli
 # Documentation
 - [Option validation](./docs/VALIDATIONS.md)
 - [Multi-level](./docs/MULTI-LEVEL.md)
+- [Prompt](./docs/PROMPT.md)
 
 # Getting started
 
