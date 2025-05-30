@@ -4,3 +4,4 @@ export * from './Register';
 export * from './parser';
 export * from './validations';
 export * from './pathfinder';
+export * from './prompt';
