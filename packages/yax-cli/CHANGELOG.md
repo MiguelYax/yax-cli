@@ -1,5 +1,11 @@
 # yax-cli
 
+## 0.5.0
+
+### Minor Changes
+
+- 692a015: Add basic prompt feature
+
 ## 0.4.2
 
 ### Patch Changes
