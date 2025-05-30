@@ -1,5 +1,11 @@
 # yax-cli
 
+## 0.5.1
+
+### Patch Changes
+
+- 61649b4: Fix prompt unexpected behavior. Add support for multiple prompt at the same time.
+
 ## 0.5.0
 
 ### Minor Changes
